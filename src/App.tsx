@@ -39,7 +39,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="App">
+    <div>
        {showMainPage ? <MainPage /> : <PreloadPage />}       
     </div>
   );

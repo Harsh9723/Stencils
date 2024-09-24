@@ -1,7 +1,6 @@
 import BASE_URL from "../Config/Config";
 import axios from "axios"; // Importing Office.js types
 
-// Define the types for the insertSvgContentIntoOffice function parameters
 export const insertSvgContentIntoOffice = async (
   svgContent: string,
   insertType: string,
@@ -164,7 +163,7 @@ export const transformToTreeData = (result: SearchResult[]): TreeNode[] => {
       icon: (
         <img
           src="./assets/Icons/main_node.png"
-          // alt="Search Results Icon"
+          alt="Search Results Icon"
           style={{ width: 16, height: 16 }}
         />
       ),
@@ -217,7 +216,7 @@ export const transformToTreeData = (result: SearchResult[]): TreeNode[] => {
         icon: (
           <img
             src={`./assets/EqType/${EQTYPE}.png`}
-            // alt="EQTYPE"
+            alt="EQTYPE"
             style={{ width: 16, height: 16 }}
           />
         ),
@@ -262,7 +261,7 @@ export const transformToTreeData = (result: SearchResult[]): TreeNode[] => {
         key: prodNoKey,
         icon: (
           <img
-            src="./assets/Icons/product_no.gif" style={{ width: 16, height: 16 }} />
+            src="./assets/Icons/product_no.gif" style={{ width: 16, height: 16 }} alt="Product Number"/>
         ),
         children: [],
         EQID:prodNoKey,

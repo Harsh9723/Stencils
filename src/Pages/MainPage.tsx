@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, TextField, Typography, IconButton, CircularProgress, Snackbar, TypographyProps } from '@mui/material';
+import { Box, TextField, Typography,CircularProgress, Snackbar, TypographyProps } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import data from '../Link.json'
 import Radio from '@mui/material/Radio';
@@ -54,7 +54,6 @@ const SearchComponent = () => {
   const [selectedDtManufacturers, setSelectedDtManufacturers] = useState<string[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [treeData, setTreeData] = useState<any[]>([]); // Specify a more accurate type if possible
-  const [resultData, setResultData] = useState<any[]>([]); // Specify a more accurate type if possible
   const [showTreeComponent, setShowTreeComponent] = useState<boolean>(false);
   const [kwdSearchType, setKwdSearchType] = useState<string>('0');
   const [showSetting, setShowSetting] = useState<boolean>(false);
@@ -90,8 +89,6 @@ const SearchComponent = () => {
       console.log('Processing resultData:', resultData);
 
       const treeHierarchy = transformToTreeData(resultData);
-      setResultData(resultData);
-
       console.log('treeHierarchy:', treeHierarchy);
       setTreeData(treeHierarchy);
 
@@ -309,7 +306,6 @@ const SearchComponent = () => {
 
   const handlebuttonclick = () => {
     setSnackbarOpen(false)
-
   }
 
   const CustomTypography: React.FC<React.PropsWithChildren<TypographyProps>> = ({ children, ...props }) => (
@@ -333,7 +329,6 @@ const SearchComponent = () => {
   };
   return (
     <div
-    className='container'
       style={{
         backgroundColor: 'var(--bg-color)',
         height: '100vh',
@@ -342,7 +337,6 @@ const SearchComponent = () => {
         flexDirection: 'column',
         overflowY: 'auto',
         justifyContent: 'flex-start',
-        fontFamily: 'Segoe UI, sans-serif',
         alignItems: 'center',
         color: 'var(--font-color)',
         boxSizing: 'border-box',

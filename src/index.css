@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-
+/* 
 .container {
   background-color: var(--bg-color);
   height: 100vh;
@@ -17,8 +17,8 @@
   box-sizing: border-box;
   padding: 9px;
   width: 100%; 
-}
-
+} */
+/* 
 @media (min-width: 600px) {
   .container {
     width: 90%;
@@ -30,6 +30,13 @@
     width: 100%; 
   }
 }
+
+@media (min-width: 800px) {
+  .container {
+    width: 100%; 
+  }
+} */
+
 
 
 body, html {

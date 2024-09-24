@@ -29,7 +29,6 @@ export const TreeDataProvider: React.FC<TreeDataProviderProps> = ({ children }) 
   const [relatedTree, setRelatedTree] = useState<TreeNode[]>([]);
 
   const addLeafNode = (parentKey: string, ...newNodes: TreeNode[]) => {
-    debugger
     setTreeData((prevData) => {
       const addNodes = (nodes: TreeNode[]): TreeNode[] => {
         return nodes.map((node) => {

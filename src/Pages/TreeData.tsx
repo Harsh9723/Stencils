@@ -1,4 +1,4 @@
-import React, { useEffect, useState,Key } from 'react';
+import React, { useEffect, useState,Key, useCallback } from 'react';
 import Tree from 'rc-tree';
 import '../App.css';
 import 'rc-tree/assets/index.css';
@@ -113,7 +113,7 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
       });
       console.log('initial treeData', initialTreeData);
     }
-  }, [initialTreeData]);
+  },[initialTreeData]);
   
 
   const autoExpandDefaultNodesOfTree = async (treeData: TreeNodeType[]) => {
@@ -326,26 +326,25 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
     }
   };
 
-  const callApiforDeviceShapeStencilEqid = async (selectedNode: SelectedNodeType, isRelatedTree = false): Promise<{ shapenodes: SelectedNodeType[], stencilNode: SelectedNodeType | null } | void> => {
-    debugger
+  const callApiforDeviceShapeStencilEqid = useCallback(async (selectedNode: SelectedNodeType, isRelatedTree = false) => {
     setIsLoading(true);
-
+  
     try {
       const eqId = selectedNode.EQID!;
       const addLeafNodeFn = isRelatedTree ? addLeafNodeToRelatedTree : addLeafNode;
-
+  
       const shapenodes = await getDeviceShapes(selectedNode, addLeafNodeFn, eqId);
       const stencilNode = await getStencilNameByEQID(selectedNode, addLeafNodeFn, eqId);
-
+  
       return { shapenodes, stencilNode };
     } catch (error) {
       console.error('API Error:', error);
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const RelatedandLibraryProperty = async (eqId: string): Promise<void> => {
+  }, [addLeafNode, addLeafNodeToRelatedTree, getDeviceShapes, getStencilNameByEQID]);
+  
+  const RelatedandLibraryProperty = useCallback(async (eqId: string) => {
     setIsLoading(true);
     try {
       const [relatedDevicesResponse, libraryPropertyResponse] = await Promise.all([
@@ -362,19 +361,19 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
           PropertyIDToShow: [],
         }),
       ]);
-
+  
       console.log('Related Devices:', relatedDevicesResponse.data);
       console.log('Library Property:', libraryPropertyResponse.data);
-
+  
       const librarypropertywithskeloton = libraryPropertyResponse.data.Data.libPropDetails.dtPropertySetSkeleton;
       const PropertyXMLString = libraryPropertyResponse.data.Data.libPropDetails.PropertyXMLString;
-
+  
       const relatedDevice = relatedDevicesResponse.data === true;
       console.log('Related Device:', relatedDevice);
-
+  
       setEqId(eqId);
       setPropertyValuesFromXML(librarypropertywithskeloton, PropertyXMLString);
-
+  
       if (relatedDevice) {
         setRelatedDevicesVisible(true);
       } else {
@@ -385,7 +384,8 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
+  
 
   const callApiForGetDevicePreview = async (shapeId: string) => {
     try {
@@ -520,6 +520,8 @@ const handleExpandMainTree = async (expandedKeys:any, { node, expanded,  }: { no
     return;
   }
 
+
+
  const { expandedKeys: autoExpandedKeys, selectedKeys: autoSelectedKeys, selectedNode, isSelected } = await autoExpandDefaultNodesOfTree([node]);
     newExpandedKeys = Array.from(new Set([...newExpandedKeys, ...autoExpandedKeys]));
     setExpandedKeys(newExpandedKeys);
@@ -546,16 +548,8 @@ const handleExpandMainTree = async (expandedKeys:any, { node, expanded,  }: { no
   } else if (selectedNode.ShapeID && selectedNode.EqId) {
 
     await callApiForGetDevicePreview(selectedNode.ShapeID);
-    setRelatedDevicesVisible(true);
   }
 };
-
-
-
-  
-  
-
-
 
   const handleSelectMainTree = async (selectedKeys: Key[], info: { event: "select"; selected: boolean; node: any; selectedNodes: any[]; nativeEvent: MouseEvent }) => {
     if (tabValue !== 0) return;
@@ -589,7 +583,9 @@ const handleExpandMainTree = async (expandedKeys:any, { node, expanded,  }: { no
     console.log('Selected Keys:', selectedKeys);
   };
   
-  
+  useEffect(() => {
+    console.log('selectednode', selectedNode)
+      },[selectedNode])
 
   useEffect(() => {
     console.log('resultExpanded', expandedKeys)
@@ -666,7 +662,7 @@ const handleExpandMainTree = async (expandedKeys:any, { node, expanded,  }: { no
 
       setRelatedExpandedKeys(expandedKeys);
       setRelatedSelectedKeys(selectedKeys);
-      if (selectedNode.Type && selectedNode.EQID && isSelected == false) {
+      if (selectedNode.Type && selectedNode.EQID && isSelected === false) {
         let resultRelated = await callApiforDeviceShapeStencilEqid(selectedNode, true)
 
         if (resultRelated && resultRelated.shapenodes?.length > 0) {
@@ -675,7 +671,7 @@ const handleExpandMainTree = async (expandedKeys:any, { node, expanded,  }: { no
             callApiForGetDevicePreview(resultRelated.shapenodes[0].ShapeID)
           }
         }
-      } else if (selectedNode.Type && selectedNode.EQID && isSelected == true) {
+      } else if (selectedNode.Type && selectedNode.EQID && isSelected === true) {
         RelatedandLibraryProperty(selectedNode.EQID)
         getStencilName(selectedNode.EQID)
         setRelatedSelectedKeys(selectedKeys);
