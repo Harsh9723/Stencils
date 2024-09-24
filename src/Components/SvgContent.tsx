@@ -40,7 +40,7 @@ const SvgWrapper = styled('div')(({ theme }) => ({
   fontFamily: 'Segoe UI, sans-serif',
 }));
 
-// Type for the props passed to the SvgContent component
+
 interface SvgContentProps {
   svgContent: string;
 }
@@ -49,23 +49,13 @@ const SvgContent: React.FC<SvgContentProps> = ({ svgContent }) => {
   const [shapeCounter, setShapeCounter] = useState(0);
   const svgRef = useRef<HTMLDivElement | null>(null);
 
-  // Effect to initialize Office JS once the component is ready
-  // useEffect(() => {
-  //   Office.onReady((info: Office.AsyncContextOptions) => {
-  //     if (info.host === Office.HostType.Word) {
-  //       console.log('Office.js is ready');
-  //     }
-  //   });
-  // }, []);
 
-  // Handle drag start event for SVG insertion
   const handleDragStart = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     await insertSvgContentIntoOffice(svgContent, 'drag', shapeCounter);
     setShapeCounter((prev) => prev + 1);
   };
 
-  // Handle double-click event for SVG insertion
   const handleDoubleClick = async () => {
     await insertSvgContentIntoOffice(svgContent, 'double-click', shapeCounter);
     setShapeCounter((prev) => prev + 1);

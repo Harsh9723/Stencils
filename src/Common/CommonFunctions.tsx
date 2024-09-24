@@ -1,5 +1,5 @@
 import BASE_URL from "../Config/Config";
-import axios from "axios"; // Importing Office.js types
+import axios from "axios";
 
 export const insertSvgContentIntoOffice = async (
   svgContent: string,
@@ -35,7 +35,6 @@ export const insertSvgContentIntoOffice = async (
 
 const API_URL = `${BASE_URL}`;
 
-// Define the types for the search parameters
 interface SearchParams {
   keyword?: string;
   kwdSearchType?: string;
@@ -109,18 +108,18 @@ export const Search = async (
     });
 
     const searchData = response.data.Data.SearchData;
-    const resultData = searchData?.dtSearchResults || []; // Safely handle if data is missing
-    const dtResultdata = searchData?.dtManufacturers || []; // Safely handle if data is missing
+    const resultData = searchData?.dtSearchResults || []; 
+    const dtResultdata = searchData?.dtManufacturers || [];
 
     console.log('Result Data:', resultData);
     console.log('dtResult Data:', dtResultdata);
 
     if (resultData.length > 0 || dtResultdata.length > 0) {
-      // If there are search results, call onSuccess with resultData
       onSuccess(resultData, dtResultdata);
     } else {
       console.log('No relevant data found');
       onError('No results found');
+    
     }
   } catch (error: any) {
     console.error('Related not shown:', error.message);
@@ -128,7 +127,7 @@ export const Search = async (
   }
 };
 
-// Define the SearchResult interface
+
 interface SearchResult {
   MfgAcronym: string;
   Manufacturer: string;
@@ -139,7 +138,7 @@ interface SearchResult {
   MFGDESC: string;
 }
 
-// Define the TreeNode interface
+
 interface TreeNode {
   title: string | JSX.Element;
   key: string;

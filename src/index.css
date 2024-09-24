@@ -72,7 +72,9 @@ body, html {
     padding: 0px 5px
   }
   
-  
+  .css-1kdujqz-MuiFormControlLabel-root .MuiFormControlLabel-label {
+    color: black;
+}
   
   .rc-tree .rc-tree-switcher-noop,
   .rc-tree .rc-tree-switcher_open,
@@ -275,12 +277,15 @@ body, html {
   color: var(--font-color);
 } */
 
-.css-1edfpdg-MuiTypography-root{
+/* .css-1edfpdg-MuiTypography-root{
   font-size: 12px;
   font-family: 'Segoe UI', sans-serif;
   color: var(--font-color);
+} */
+.css-1edfpdg-MuiTypography-root{
+  font-size: 12px;
+  font-family:'Segoe UI', sans-serif ;
 }
-
 /* Link styles */
 .setting-link {
   font-size: 12px;

@@ -27,7 +27,7 @@ interface TreeDataProviderProps {
 export const TreeDataProvider: React.FC<TreeDataProviderProps> = ({ children }) => {
   const [treeData, setTreeData] = useState<TreeNode[]>([]);
   const [relatedTree, setRelatedTree] = useState<TreeNode[]>([]);
-
+// add view node to parentnode on result tab tree
   const addLeafNode = (parentKey: string, ...newNodes: TreeNode[]) => {
     setTreeData((prevData) => {
       const addNodes = (nodes: TreeNode[]): TreeNode[] => {
@@ -59,7 +59,7 @@ export const TreeDataProvider: React.FC<TreeDataProviderProps> = ({ children }) 
       return addNodes(prevData);
     });
   };
-
+//add node to parentnode on relaated tree 
   const addLeafNodeToRelatedTree = (parentKey: string, ...newNodes: TreeNode[]) => {
     setRelatedTree((prevData) => {
       const addNodes = (nodes: TreeNode[]): TreeNode[] => {

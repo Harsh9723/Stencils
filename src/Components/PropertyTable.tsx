@@ -88,6 +88,7 @@ const StyledTableRow = styled(TableRow)({
   fontFamily: 'Segoe UI, sans-serif',
 });
 
+
 const PropertyTable: React.FC<PropertyTableProps> = ({
   propertyData = [],
   stencilResponse = '',
@@ -111,7 +112,7 @@ const PropertyTable: React.FC<PropertyTableProps> = ({
         autoHideDuration={3000}
         onClose={handleSnackbarClose}
         message={
-          <span style={{ color: 'var(--black-font)' }}>
+          <span style={{ color: '#000000' }}>
             Content copied to clipboard
           </span>
         }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, TextField, Typography,CircularProgress, Snackbar, TypographyProps } from '@mui/material';
+import { Box, TextField, Typography, CircularProgress, Snackbar, TypographyProps } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import data from '../Link.json'
 import Radio from '@mui/material/Radio';
@@ -28,7 +28,7 @@ interface EqType {
 }
 
 interface ProductLine {
- 
+
 }
 
 interface ProductNumber {
@@ -112,6 +112,8 @@ const SearchComponent = () => {
     setSnackbarOpen(true);
   };
 
+// Fetch Manufacturer 
+
   useEffect(() => {
     const fetchManufacturers = async () => {
       setLoading(true);
@@ -137,6 +139,7 @@ const SearchComponent = () => {
     fetchManufacturers();
   }, []);
 
+// Fetch Equipment Types based on Manufacturer
   useEffect(() => {
     if (selectedManufacturer) {
       const fetchEqTypes = async () => {
@@ -165,7 +168,7 @@ const SearchComponent = () => {
     }
   }, [selectedManufacturer]);
 
-
+// Fetch Product line based on Manufacturer and Eq Types
   useEffect(() => {
     if (selectedManufacturer && selectedEqType) {
       const fetchProductLine = async () => {
@@ -194,7 +197,7 @@ const SearchComponent = () => {
     }
   }, [selectedManufacturer, selectedEqType]);
 
-
+// Fetch Product number based on Manufacturer, Eq Types & Product Line 
   useEffect(() => {
     if (selectedManufacturer && selectedEqType && selectedProductLine) {
       const fetchProductNumber = async () => {
@@ -225,12 +228,13 @@ const SearchComponent = () => {
     }
   }, [selectedManufacturer, selectedEqType, selectedProductLine]);
 
+
+// get manufacturer if keyword match 
   useEffect(() => {
     if (keyword) {
       const matchedManufacturers = manufacturers.filter((manufacturer) =>
         manufacturer.MfgAcronym.toLowerCase().includes(keyword.toLowerCase())
       );
-
       if (matchedManufacturers.length > 0) {
         console.log('Matched Manufacturers:', matchedManufacturers);
       } else {
@@ -239,6 +243,8 @@ const SearchComponent = () => {
     }
 
   }, [keyword, manufacturers]);
+
+//if all selected then auto search as per selected 
 
   useEffect(() => {
     if (selectedManufacturer && selectedEqType && selectedProductLine && selectedProductNumber) {
@@ -276,15 +282,19 @@ const SearchComponent = () => {
     setSelectedProductNumber(event.target.value)
 
   }
+
   const handleSettingClick = () => {
     setShowSetting(true)
   };
+  
   const backfromsetting = () => {
     setShowSetting(false)
   }
   const handleClick = () => {
     window.open(data.logourl, '_blank');
   };
+
+
   const handleManufacturerSelection = (manufacturer: string) => {
     setSelectedDtManufacturers((prevSelected) =>
       prevSelected.includes(manufacturer)
@@ -292,6 +302,7 @@ const SearchComponent = () => {
         : [...prevSelected, manufacturer]
     );
   };
+  
   const handleDialogSubmit = () => {
     console.log('Selected Manufacturers:', selectedDtManufacturers);
     setIsDialogOpen(false);
@@ -476,7 +487,7 @@ const SearchComponent = () => {
           >
             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', width: '100%' }}>
               <div style={{ flexGrow: 1, padding: '1px', fontSize: '12px' }}>
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '10px' }}> {/* Adjust the minHeight value as needed */}
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '10px' }}> 
                   <TextField
                     id="outlined-basic"
                     label={<CustomTypography>Search</CustomTypography>}
@@ -484,25 +495,19 @@ const SearchComponent = () => {
                     value={keyword}
                     onChange={(e) => setKeyword(e.target.value)}
                     placeholder="By keyword"
-                    InputLabelProps={{ style: { color: 'var(--font-color)' } }}
-                    InputProps={{
-                      style: {
-                        color: 'var(--font-color)',
-                        fontSize: '12px',
-                        padding: '10px',
-                      },
-                    }}
-                    onKeyPress={(event) => {
+                    onKeyDown={(event) => {
                       if (event.key === 'Enter' && keyword.trim() !== '') {
                         handlesearch();
                       }
                     }}
                     fullWidth
                     sx={{
+                      '.MuiInputLabel-root': {
+                        color: 'var(--font-color)',
+                      },
                       '.MuiOutlinedInput-root': {
                         '& fieldset': {
                           borderColor: 'var(--font-color)',
-                          padding: '10px',
                         },
                         '&:hover fieldset': {
                           borderColor: 'var(--font-color)',
@@ -510,15 +515,17 @@ const SearchComponent = () => {
                         '&.Mui-focused fieldset': {
                           borderColor: 'var(--font-color)',
                         },
-                        '& .MuiInputBase-input': {
-                          padding: '10px',
-                          boxSizing: 'border-box',
-                        },
+                      },
+                      '.MuiInputBase-input': {
+                        color: 'var(--font-color)', // Input text color
+                        fontSize: '12px',
+                        padding: '10px',
                       },
                       fontSize: '12px',
                       color: 'var(--font-color)',
                     }}
                   />
+
                 </div>
 
                 {keyword ? (
@@ -599,7 +606,7 @@ const SearchComponent = () => {
                   sx={{
                     color: 'var(--font-color)',
                     fontSize: '12px',
-                    height: 'auto',  // Adjust the height here
+                    height: 'auto',  
                   }}
                   shrink
                 >
@@ -691,7 +698,7 @@ const SearchComponent = () => {
                     if (!selected) {
                       return <h1>All</h1>;
                     }
-                    return selected as string; 
+                    return selected as string;
                   }}
                 >
                   {eqTypes.length > 0 && (
@@ -762,7 +769,7 @@ const SearchComponent = () => {
                     </MenuItem>
                   )}
                   {productLine.length > 0 ? (
-                    productLine.map((productLine :any) => (
+                    productLine.map((productLine: any) => (
                       <MenuItem key={productLine} value={productLine} sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}>
                         {productLine}
                       </MenuItem>
@@ -815,7 +822,7 @@ const SearchComponent = () => {
                     </MenuItem>
                   )}
                   {productNumber.length > 0 ? (
-                    productNumber.map((pnumber:any) => (
+                    productNumber.map((pnumber: any) => (
                       <MenuItem key={pnumber} value={pnumber} sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}>
                         {pnumber}
                       </MenuItem>
@@ -869,7 +876,7 @@ const SearchComponent = () => {
 
               <Typography sx={{ marginLeft: '6px', whiteSpace: 'nowrap', fontSize: '12px' }}>Visit</Typography>
               <Typography
-                  title="Visit VisioStencil website"
+                title="Visit VisioStencil website"
                 sx={{
                   marginLeft: '8px',
                   cursor: 'pointer',
