@@ -117,7 +117,7 @@ const PropertyTable: React.FC<PropertyTableProps> = ({
         }
         ContentProps={{
           style: {
-            backgroundColor: 'var(--font-color)', // Background color
+            backgroundColor: 'var(--font-color)',
           },
         }}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
@@ -125,7 +125,6 @@ const PropertyTable: React.FC<PropertyTableProps> = ({
 
       <StyledPropertyCard>
         <CardContent>
-          {/* Add the correct type for the component prop */}
           <StyledTableContainer component={Paper}>
             <Table>
               <TableBody>

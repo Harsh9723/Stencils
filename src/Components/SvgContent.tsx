@@ -3,7 +3,6 @@ import { styled } from '@mui/system';
 import { Card } from '@mui/material';
 import { insertSvgContentIntoOffice } from '../Common/CommonFunctions';
 
-// Styling for the Card component
 const StyledSvgCard = styled(Card)(({ theme }) => ({
   backgroundColor: '#778899',
   marginTop: '20px',
@@ -21,7 +20,6 @@ const StyledSvgCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-// Styling for the SVG wrapper
 const SvgWrapper = styled('div')(({ theme }) => ({
   margin: '0 auto',
   width: '100%',

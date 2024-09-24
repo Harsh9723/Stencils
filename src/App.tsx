@@ -3,7 +3,6 @@ import PreloadPage from './Components/PreloadPage';
 import MainPage from './Pages/MainPage';
 import './App.css';
 
-// Define any global Office variables if needed
 declare global {
   interface Window {
     Office: any;
@@ -31,7 +30,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (window.Office) {
-      // Check if Office is ready for Word
       window.Office.onReady((info: { host: string }) => {
         if (info.host === window.Office.HostType.Word) {
           console.log('Word is ready');
@@ -42,9 +40,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      {/* {showMainPage ? <MainPage /> : <PreloadPage />} 
-       */}
-       <MainPage />
+       {showMainPage ? <MainPage /> : <PreloadPage />}       
     </div>
   );
 };

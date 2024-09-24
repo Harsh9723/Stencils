@@ -21,11 +21,9 @@ import BASE_URL from '../Config/Config';
 interface Manufacturer {
   MfgAcronym: string;
   Manufacturer: string
-
 }
 
 interface EqType {
-
   eqtype: string,
 }
 
@@ -454,13 +452,6 @@ const SearchComponent = () => {
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <>
                 <img src="./assets/Icons/NetZoom_Settings_128x128.svg" alt="" title='Setting' style={{ padding: 0, maxWidth: '20px', cursor: 'pointer', color: 'var(--font-color)' }} onClick={handleSettingClick} />
-
-                <IconButton
-                  title="Setting"
-                  sx={{ color: 'var(--font-color)', padding: 0 }}
-                  onClick={handleSettingClick}>
-                </IconButton>
-
                 <Typography sx={{ marginLeft: '8px', whiteSpace: 'nowrap', fontSize: '12px' }}>Visit</Typography>
                 <Typography
                   title="Visit VisioStencil website"
@@ -884,6 +875,7 @@ const SearchComponent = () => {
 
               <Typography sx={{ marginLeft: '6px', whiteSpace: 'nowrap', fontSize: '12px' }}>Visit</Typography>
               <Typography
+                  title="Visit VisioStencil website"
                 sx={{
                   marginLeft: '8px',
                   cursor: 'pointer',
@@ -927,6 +919,7 @@ const SearchComponent = () => {
 
                 <Typography sx={{ marginLeft: '8px', whiteSpace: 'nowrap', fontSize: '12px' }}>Visit</Typography>
                 <Typography
+                  title="Visit VisioStencil website"
                   sx={{
                     marginLeft: '8px',
                     cursor: 'pointer',

@@ -262,9 +262,7 @@ export const transformToTreeData = (result: SearchResult[]): TreeNode[] => {
         key: prodNoKey,
         icon: (
           <img
-            src="./assets/Icons/product_no.gif"
-            style={{ width: 16, height: 16 }}
-          />
+            src="./assets/Icons/product_no.gif" style={{ width: 16, height: 16 }} />
         ),
         children: [],
         EQID:prodNoKey,

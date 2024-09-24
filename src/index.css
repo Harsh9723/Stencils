@@ -231,3 +231,103 @@ body, html {
   .svg path {
     fill: var(--font-color); /* This sets the `currentColor` of the SVG */
   }
+
+
+  /* index.css */
+
+/* General settings */
+
+
+/* Container styles */
+.setting-container {
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: var(--font-color);
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+/* Box styles */
+.setting-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* Typography styles */
+/* .setting-text {
+  font-size: 12px;
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--font-color);
+} */
+
+.css-1edfpdg-MuiTypography-root{
+  font-size: 12px;
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--font-color);
+}
+
+/* Link styles */
+.setting-link {
+  font-size: 12px;
+  color: rgb(125, 192, 218);
+  text-decoration: none;
+}
+
+.setting-link:hover {
+  text-decoration: underline;
+}
+
+/* TextField styles */
+.custom-textfield {
+  width: 100%;
+}
+
+.custom-textfield .MuiInputLabel-root {
+  font-size: 12px;
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--font-color);
+}
+
+.custom-textfield .MuiOutlinedInput-root {
+  font-size: 12px;
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--font-color);
+}
+
+.custom-textfield .MuiOutlinedInput-root fieldset {
+  border-color: var(--font-color);
+}
+
+.custom-textfield .MuiOutlinedInput-root:hover fieldset {
+  border-color: var(--font-color);
+}
+
+.custom-textfield .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: var(--font-color);
+}
+
+.custom-textfield .MuiInputBase-input {
+  padding: 12px 12px;
+}
+
+/* Button styles */
+.custom-button {
+  padding: 5px 15px;
+  align-self: center;
+  background-color: #87CEEB;
+  color: var(--font-color);
+  font-size: 12px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.custom-button:hover {
+  background-color: #87CEEB;
+}
