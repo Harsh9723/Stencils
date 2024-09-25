@@ -58,20 +58,24 @@ body, html {
   
   
   .custom-rc-tree .rc-tree-node .rc-tree-switcher {
-    display: inline-block;
-    background-color: #efefef;
+   color: var(--font-color);
   }
   
   
   .custom-rc-tree .rc-tree-node.rc-tree-node-leaf .rc-tree-switcher {
     display: none;
   }
-  
+  .rc-tree-node-selected{
+    /* color: var(--font-color); */
+    background-color: var(--font-color) !important;
+    box-shadow: none !important;
+    
+  }
 
   /* Ensure expand/collapse icons also match the selected node styles */
   .custom-rc-tree .rc-tree-node-selected .rc-tree-switcher {
     color: black !important; /* Set icon color */
-    background-color: #efefef !important;  /* Set background color */
+    /* background-color: #efefef !important;  Set background color */
   }
   
   /* Set rc-tree width to full */
@@ -115,18 +119,31 @@ body, html {
   }
   
   /* Style for selected node */
-  .custom-rc-tree .rc-tree-node-selected {
-    background-color: #efefef !important; /* Set background color */
+  .custom-rc-tree  .rc-tree-treenode-selected{
+    background-color: var(--font-color) !important; /* Set background color */
     color: black !important; /* Set text color */
-    width: 95%; /* Ensure full width selection */
+    width: 100%; 
     line-height: 0px;
     min-height: 10px !important;
+    display: flex !important;
+    align-items: center;
+    position: unset !important;
+  }
+
+  .rc-tree-treenode{
+    display: flex !important;
+    align-items: center;
+    width: 100% !important;
+  }
+
+  .rc-tree{
+    width: 100%;
   }
   
   /* Ensure expand/collapse icons also match the selected node styles */
   .custom-rc-tree .rc-tree-node-selected .rc-tree-switcher {
-    color: black !important; /* Set icon color */
-    background-color: #efefef !important;  /* Set background color */
+    color: black !important; 
+    background-color: #efefef !important;  
   }
   
   /* Ensure icons inside selected nodes match the background */
@@ -142,43 +159,22 @@ body, html {
   
   /* Set font color to white when the tab is selected */
   .MuiButtonBase-root.MuiTab-root.MuiTab-textColorPrimary.Mui-selected {
-    color: rgb(168, 202, 230) !important; /* Set text color to white */
+    color: rgb(168, 202, 230) !important; 
   }
   
   
   .MuiTabs-indicator.css-1aquho2-MuiTabs-indicator {
-    background-color: white !important; /* Set indicator background color to white */
+    background-color: white !important; 
   }
   
-  /* .rc-tree .rc-tree-treenode .rc-tree-node-content-wrapper{
-    vertical-align: middle;
-  } */
+  .rc-tree .rc-tree-treenode .rc-tree-node-content-wrapper{
+   position: unset !important;
+   display: flex !important;
+   align-items: center !important;
+  }
   .MuiTabs-scroller{
     margin-top: 0px;
   }
-  span.rc-tree-iconEle{
-    margin-top: 4px !important;
-  }
-  
-  /* For Webkit browsers */
-  /* body { */
-    /* overflow-y: auto; Only shows vertical scrollbar when content overflows */
-    /* overflow-x: hidden; Avoid horizontal scrollbar unless necessary */
-  /* } */
-  
-  /* ::-webkit-scrollbar {
-    width: 5px; /* Adjust width of the scrollbar */
-  /* } */
-  
-  /* ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2); /* Scrollbar thumb color */
-    /* border-radius: 3px; Rounded corners for the scrollbar thumb */
-  /* } */ */
-  
-  /* ::-webkit-scrollbar-track { */
-    /* background: var(--bg-color); Track color */
-  /* } */
-  
 
   .rc-tree .rc-tree-treenode{
     line-height: 0px;
@@ -199,11 +195,11 @@ body, html {
   }
   
   .svg path {
-    fill: var(--font-color); /* This sets the `currentColor` of the SVG */
+    fill: var(--font-color); 
   }
 
 
-  /* index.css */
+
 
 /* General settings */
 
@@ -359,4 +355,26 @@ body, html {
 
 .search-lbl>.MuiInputBase-root>.MuiOutlinedInput-notchedOutline>legend>span {
   width: 38px !important;
+}
+
+.MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-1qhvnat-MuiButtonBase-root-MuiMenuItem-root{
+min-height: auto;
+}
+
+.MuiMenu-list{
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+  .MuiMenu-list>.MuiMenuItem-root{
+    min-height: auto !important;
+    
+  }
 }

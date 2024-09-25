@@ -59,7 +59,7 @@ const StyledTableCellHeader = styled(TableCell)({
 
 const StyledTableCellBody = styled(TableCell)({
   backgroundColor: '#778899',
-  padding: '10px 16px',
+  padding: '7px 10px',
   border: '1px solid #ffffff',
   color: 'var(--font-color)',
   position: 'relative',

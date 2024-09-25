@@ -23,8 +23,7 @@ const StyledSvgCard = styled(Card)(({ theme }) => ({
 const SvgWrapper = styled('div')(({ theme }) => ({
   margin: '0 auto',
   width: '100%',
-  maxHeight: '325px',
-  maxWidth: '80%',
+  maxWidth: '100%',
   '& svg': {
     width: '100%',
     height: 'auto',
@@ -40,7 +39,6 @@ const SvgWrapper = styled('div')(({ theme }) => ({
   fontFamily: 'Segoe UI, sans-serif',
 }));
 
-
 interface SvgContentProps {
   svgContent: string;
   productnumber: any[];
@@ -50,7 +48,6 @@ const SvgContent: React.FC<SvgContentProps> = ({ svgContent, productnumber }) =>
   const [shapeCounter, setShapeCounter] = useState(0);
   const svgRef = useRef<HTMLDivElement | null>(null);
 
-console.log('productnumber', productnumber)
   const handleDragStart = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     await insertSvgContentIntoOffice(svgContent, 'drag', shapeCounter);
@@ -64,34 +61,37 @@ console.log('productnumber', productnumber)
 
   return (
     <div>
-    <StyledSvgCard>
-      <SvgWrapper
-        ref={svgRef}
-        draggable
-        onDragOver={(e: React.DragEvent<HTMLDivElement>) => {
-          e.preventDefault();
-          console.log('Dragging over the target');
-        }}
-        onDragStart={handleDragStart}
-        onDoubleClick={handleDoubleClick}
-        title="Drag and Drop Or Double-click To Insert"
-      >
-        <div dangerouslySetInnerHTML={{ __html: svgContent }} />
-  
-        <h1 style={{ 
-          textAlign: 'center', 
-          marginTop: '0px', // Add spacing between svgContent and h1
-          width: '100%', 
-          fontSize:'12px',
-          color:'var(--font-color)'
-        }}>
-          {productnumber}
-        </h1>
-      </SvgWrapper>
-    </StyledSvgCard>
-  </div>
-  
+      <StyledSvgCard>
+        <SvgWrapper
+          ref={svgRef}
+          draggable
+          onDragOver={(e: React.DragEvent<HTMLDivElement>) => {
+            e.preventDefault();
+            console.log('Dragging over the target');
+          }}
+          onDragStart={handleDragStart}
+          onDoubleClick={handleDoubleClick}
+          title="Drag and Drop Or Double-click To Insert"
+        >
+          <div dangerouslySetInnerHTML={{ __html: svgContent }} />
 
+          {/* Adding the h1 with product number outside the SVG */}
+          <h1
+            style={{
+              textAlign: 'center',
+              marginTop: '0px',
+              width: '100%',
+              fontSize: '12px',
+              color: 'var(--font-color)',
+              fontWeight: 'bold',
+
+            }}
+          >
+            {productnumber}
+          </h1>
+        </SvgWrapper>
+      </StyledSvgCard>
+    </div>
   );
 };
 

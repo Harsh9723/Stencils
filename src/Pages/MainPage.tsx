@@ -438,7 +438,6 @@ const SearchComponent = () => {
         <>
           <Box
             sx={{
-              // position: 'relative',
               top: '0px',
               margin: '2px',
               display: 'flex',
@@ -452,8 +451,9 @@ const SearchComponent = () => {
                 <Typography
                   title="Visit VisioStencil website"
                   sx={{
-                    marginLeft: '8px',
+                    marginLeft: '4px',
                     cursor: 'pointer',
+                    color:'var(--link-color)',
                     textDecoration: 'underline',
                     whiteSpace: 'nowrap',
                     fontSize: '12px',
@@ -831,6 +831,7 @@ const SearchComponent = () => {
                   marginLeft: '8px',
                   cursor: 'pointer',
                   textDecoration: 'underline',
+                  color:'var(--link-color)',
                   whiteSpace: 'nowrap',
                   fontSize: '12px'
                 }}

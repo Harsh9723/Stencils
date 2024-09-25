@@ -13,6 +13,7 @@ import BASE_URL from '../Config/Config';
 import { insertSvgContentIntoOffice } from '../Common/CommonFunctions';
 import { Search, transformToTreeData } from '../Common/CommonFunctions';
 import { TreeNodeProps } from 'rc-tree';
+import { ReactSVG } from 'react-svg';
 
 interface TreeNodeType {
   key: string;
@@ -134,14 +135,32 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
   };
 
   //set icons for tree
-  const switcherIcon: React.FC<TreeNodeProps> = ({ expanded, isLeaf }) => {
+  const switcherIcon: React.FC<TreeNodeProps> = ({ expanded, isLeaf,selected }) => {
     if (isLeaf) {
       return null;
     }
+  
+    const svgColor = selected ? 'black' : 'var(--font-color)' ; // Choose colors based on expanded state
+  
     return expanded ? (
-      <img src="./assets/Icons/Down_128x128.svg" alt="" />
+      <ReactSVG 
+        src="./assets/Icons/Down_128x128.svg"
+        beforeInjection={(svg) => {
+          svg.setAttribute('fill', svgColor);  // Set the fill color
+          svg.setAttribute('height', '16px');  // Fix height
+          svg.setAttribute('width', '16px');   // Fix width
+        }}
+      />
     ) : (
-      <img src="./assets/Icons/Down_128x128.svg" style={{transform:'rotate(270deg)'}} alt="" />
+      <ReactSVG 
+        src="./assets/Icons/Down_128x128.svg"
+        beforeInjection={(svg) => {
+          svg.setAttribute('fill', svgColor);  // Set the fill color
+          svg.setAttribute('height', '16px');  // Fix height
+          svg.setAttribute('width', '16px');    // Fix width
+        }}
+        style={{ transform: 'rotate(270deg)' }}
+      />
     );
   };
 
@@ -443,7 +462,6 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
 
   // function for manually expand tree(result tab tree)
   const handleExpandMainTree = async (expandedKeys: any, { node, expanded, }: { node: any; expanded: boolean; nativeEvent: MouseEvent }) => {
-debugger
     let newExpandedKeys = [...expandedKeys]
 
     const eqid = node.EQID;
@@ -742,7 +760,7 @@ debugger
             switcherIcon={switcherIcon}
             defaultExpandAll={false}
             showIcon={true}
-            className="custom-rc-tree"
+            className="custom-rc-tree w-[100%]"
             expandedKeys={relatedExpandedKeys}
             selectedKeys={relatedSelectedKeys}
             draggable

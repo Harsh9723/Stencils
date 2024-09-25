@@ -12,12 +12,12 @@ const useTheme = (colortheme:string) => {
     };
 
     const rgb = hex2rgb(hexColor);
-    const fontColor = (rgb.r * 0.299 + rgb.g * 0.587 + rgb.b * 0.114) > 150 ? "#222" : "#fff"; 
+    const fontColor = (rgb.r * 0.299 + rgb.g * 0.587 + rgb.b * 0.114) > 150 ? "#222" : "#ffffff"; 
 
     document.documentElement.style.setProperty('--font-color', fontColor);
     document.documentElement.style.setProperty('--bg-color', hexColor);
     // document.documentElement.style.setProperty('--black-font', fontColor == "#000000" ? "true" : "false"); 
-
+    document.documentElement.style.setProperty('--link-color', '#87ceeb')
     console.log(`Font color set to ${fontColor} based on hex: ${hexColor} and RGB: (${rgb.r}, ${rgb.g}, ${rgb.b})`); 
   }, [colortheme]);
 };
