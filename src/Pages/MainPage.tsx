@@ -112,7 +112,7 @@ const SearchComponent = () => {
     setSnackbarOpen(true);
   };
 
-// Fetch Manufacturer 
+  // Fetch Manufacturer 
 
   useEffect(() => {
     const fetchManufacturers = async () => {
@@ -139,7 +139,7 @@ const SearchComponent = () => {
     fetchManufacturers();
   }, []);
 
-// Fetch Equipment Types based on Manufacturer
+  // Fetch Equipment Types based on Manufacturer
   useEffect(() => {
     if (selectedManufacturer) {
       const fetchEqTypes = async () => {
@@ -168,7 +168,7 @@ const SearchComponent = () => {
     }
   }, [selectedManufacturer]);
 
-// Fetch Product line based on Manufacturer and Eq Types
+  // Fetch Product line based on Manufacturer and Eq Types
   useEffect(() => {
     if (selectedManufacturer && selectedEqType) {
       const fetchProductLine = async () => {
@@ -197,7 +197,7 @@ const SearchComponent = () => {
     }
   }, [selectedManufacturer, selectedEqType]);
 
-// Fetch Product number based on Manufacturer, Eq Types & Product Line 
+  // Fetch Product number based on Manufacturer, Eq Types & Product Line 
   useEffect(() => {
     if (selectedManufacturer && selectedEqType && selectedProductLine) {
       const fetchProductNumber = async () => {
@@ -229,7 +229,7 @@ const SearchComponent = () => {
   }, [selectedManufacturer, selectedEqType, selectedProductLine]);
 
 
-// get manufacturer if keyword match 
+  // get manufacturer if keyword match 
   useEffect(() => {
     if (keyword) {
       const matchedManufacturers = manufacturers.filter((manufacturer) =>
@@ -244,7 +244,7 @@ const SearchComponent = () => {
 
   }, [keyword, manufacturers]);
 
-//if all selected then auto search as per selected 
+  //if all selected then auto search as per selected 
 
   useEffect(() => {
     if (selectedManufacturer && selectedEqType && selectedProductLine && selectedProductNumber) {
@@ -286,7 +286,7 @@ const SearchComponent = () => {
   const handleSettingClick = () => {
     setShowSetting(true)
   };
-  
+
   const backfromsetting = () => {
     setShowSetting(false)
   }
@@ -302,7 +302,7 @@ const SearchComponent = () => {
         : [...prevSelected, manufacturer]
     );
   };
-  
+
   const handleDialogSubmit = () => {
     console.log('Selected Manufacturers:', selectedDtManufacturers);
     setIsDialogOpen(false);
@@ -318,13 +318,6 @@ const SearchComponent = () => {
   const handlebuttonclick = () => {
     setSnackbarOpen(false)
   }
-
-  const CustomTypography: React.FC<React.PropsWithChildren<TypographyProps>> = ({ children, ...props }) => (
-    <Typography variant="body2" sx={{ fontSize: '12px', fontFamily: ['Segoe UI', 'sans-serif'] }} {...props}>
-      {children}
-    </Typography>
-  );
-
   useTheme(data.colortheme)
 
   const handleSnackbarClose = (event: React.SyntheticEvent | Event, reason?: string) => {
@@ -344,16 +337,14 @@ const SearchComponent = () => {
         backgroundColor: 'var(--bg-color)',
         height: '100vh',
         display: 'flex',
-        overflow: 'hidden',
         flexDirection: 'column',
         overflowY: 'auto',
-        justifyContent: 'flex-start',
+        overflowX: 'hidden',
         alignItems: 'center',
         color: 'var(--font-color)',
-        boxSizing: 'border-box',
-        padding: '9px',
-      }}
-    >
+        padding: '10px',
+      }}>
+
       <Backdrop
         sx={{
           color: '#fff',
@@ -447,11 +438,11 @@ const SearchComponent = () => {
         <>
           <Box
             sx={{
-              position: 'relative',
+              // position: 'relative',
               top: '0px',
+              margin: '2px',
               display: 'flex',
               alignItems: 'center',
-              overflow: 'hidden',
               width: '100%',
             }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -476,57 +467,57 @@ const SearchComponent = () => {
           <Box
             component="form"
             sx={{
-              width: '101%',
+              width: '100%',
               display: 'flex',
               flexDirection: 'column',
-              overflowY: 'auto',
-              padding: '12px'
+              padding: '4px',
+              mt:'7px',
             }}
             noValidate
-            autoComplete="off"
           >
             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', width: '100%' }}>
               <div style={{ flexGrow: 1, padding: '1px', fontSize: '12px' }}>
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '10px' }}> 
-                  <TextField
-                    id="outlined-basic"
-                    label={<CustomTypography>Search</CustomTypography>}
-                    variant="outlined"
-                    value={keyword}
-                    onChange={(e) => setKeyword(e.target.value)}
-                    placeholder="By keyword"
-                    onKeyDown={(event) => {
-                      if (event.key === 'Enter' && keyword.trim() !== '') {
-                        handlesearch();
-                      }
-                    }}
-                    fullWidth
-                    sx={{
-                      '.MuiInputLabel-root': {
-                        color: 'var(--font-color)',
-                      },
-                      '.MuiOutlinedInput-root': {
-                        '& fieldset': {
-                          borderColor: 'var(--font-color)',
-                        },
-                        '&:hover fieldset': {
-                          borderColor: 'var(--font-color)',
-                        },
-                        '&.Mui-focused fieldset': {
-                          borderColor: 'var(--font-color)',
-                        },
-                      },
-                      '.MuiInputBase-input': {
-                        color: 'var(--font-color)', // Input text color
-                        fontSize: '12px',
-                        padding: '10px',
-                      },
-                      fontSize: '12px',
+                <TextField
+                  id="outlined-basic"
+                  label='Search'
+                  value={keyword}
+                  className='nz-searchcombo search-lbl'
+                  onChange={(e) => setKeyword(e.target.value)}
+                  placeholder="By keyword"
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' && keyword.trim() !== '') {
+                      handlesearch();
+                    }
+                  }}
+                  fullWidth
+                  sx={{
+                    '.MuiInputLabel-root': {
                       color: 'var(--font-color)',
-                    }}
-                  />
+                      fontSize: '12px', // Set label font size
+                    },
+                    '.MuiOutlinedInput-root': {
+                      height: '40px', // Adjust height of TextField
+                      '& fieldset': {
+                        borderColor: 'var(--font-color)',
+                      },
+                      '&:hover fieldset': {
+                        borderColor: 'var(--font-color)',
+                      },
+                      '&.Mui-focused fieldset': {
+                        borderColor: 'var(--font-color)',
+                      },
+                    },
+                    '.MuiInputBase-input': {
+                      color: 'var(--font-color)',
+                      fontSize: '12px',
+                      padding: '6px 8px', // Adjust padding to decrease height
+                    },
+                    fontSize: '12px',
+                    color: 'var(--font-color)',
+                  }}
+                />
 
-                </div>
+
 
                 {keyword ? (
                   <Snackbar
@@ -575,172 +566,75 @@ const SearchComponent = () => {
               </div>
             </div>
 
-            <div style={{ minHeight: '30px' }}>
-              <FormControl component="fieldset" sx={{ width: '100%' }}>
-                <RadioGroup
-                  row
-                  sx={{
-                    justifyContent: 'flex-start',
-                    color: 'var(--font-color)',
-                    fontSize: '12px'
-                  }}
-                  onChange={handleKwdSearchTypeChange}
-                  value={kwdSearchType}
-                >
-                  <FormControlLabel
-                    sx={{ fontSize: '12px' }}
-                    control={<Radio sx={{ color: 'var(--font-color)', fontSize: '12px' }} color='default' value="0" />}
-                    label='Any Word'
-                  />
-                  <FormControlLabel
-                    control={<Radio sx={{ color: 'var(--font-color)' }} color='default' value="1" />}
-                    label='All Words'
-                  />
-                </RadioGroup>
-              </FormControl>
-            </div>
+            <FormControl variant='outlined' sx={{ mt: 2 }} >
+              <InputLabel sx={{ color: 'var(--font-color)', fontSize: '12px', height: 'auto' }} className='' shrink> Manufacturers[{manufacturers.length}]</InputLabel>
+              <Select
+                displayEmpty
+                value={selectedManufacturer}
+                onChange={handleManufacturerChange}
+                className='nz-searchcombo'
 
-            <div style={{ minHeight: '10px' }}>
-              <FormControl fullWidth variant="outlined" sx={{ mt: 1, height: 'auto' }}>
-                <InputLabel
+                input={<OutlinedInput label={`Manufacturers[${manufacturers.length}]`}
                   sx={{
                     color: 'var(--font-color)',
                     fontSize: '12px',
-                    height: 'auto',  
+                    height: 'auto',
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'var(--font-color)',
+                    },
+                    '& .MuiInputBase-input': {
+                      fontSize: '12px',
+                      padding: '12px',
+                    },
                   }}
-                  shrink
-                >
-                  Manufacturers [{manufacturers.length}]
-                </InputLabel>
-                <Select
-                  displayEmpty
-                  value={selectedManufacturer}
-                  onChange={handleManufacturerChange}
-                  className='nz-searchcombo'
-                  input={
-                    <OutlinedInput
-                      notched
-                      label={`Manufacturers [${manufacturers.length}]`}
-                      sx={{
-                        color: 'var(--font-color)',
-                        fontSize: '12px',
-                        height: 'auto',
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                          borderColor: 'var(--font-color)',
-                        },
-                        '& .MuiInputBase-input': {
-                          fontSize: '12px',
-                          padding: '12px',
-                        },
-                      }}
-                    />
+                />}
+                MenuProps={{
+                  PaperProps: {
+                    style: {
+                      zIndex: 20,
+                      height: '75%'
+                    },
+                  },
+                }}
+                renderValue={(selected: string) => {
+                  if (!selected) {
+                    return <h1>All</h1>
                   }
-                  renderValue={(selected) => {
-                    if (!selected) {
-                      return <h1>All</h1>;
-                    }
-                    const selectedManufacturer = manufacturers.find(manufacturer => manufacturer.MfgAcronym === selected);
-                    return selectedManufacturer ? selectedManufacturer.Manufacturer : 'All';
-                  }}
-                >
-                  {manufacturers.length > 0 && (
-                    <MenuItem value="" sx={{ fontSize: '12px' }}>
-                      <h1>All</h1>
+                  const selectedManufacturer = manufacturers.find(manufacturer => manufacturer.MfgAcronym === selected);
+                  return selectedManufacturer ? selectedManufacturer.Manufacturer : 'All';
+                }}
+              >
+                {manufacturers.length > 0 && (<MenuItem value="" sx={{ fontSize: '12px' }}><h1>All</h1></MenuItem>)}
+                {manufacturers.length > 0 ? (
+                  manufacturers.map((manufacturer) => (
+                    <MenuItem key={manufacturer.MfgAcronym} value={manufacturer.MfgAcronym}
+                      sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}
+                    >
+                      {manufacturer.Manufacturer}
                     </MenuItem>
-                  )}
-                  {manufacturers.length > 0 ? (
-                    manufacturers.map((manufacturer) => (
-                      <MenuItem
-                        key={manufacturer.MfgAcronym}
-                        value={manufacturer.MfgAcronym}
-                        sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}
-                      >
-                        {manufacturer.Manufacturer}
-                      </MenuItem>
-                    ))
-                  ) : (
-                    <MenuItem disabled>No Manufacturers Available</MenuItem>
-                  )}
-                </Select>
-              </FormControl>
+                  ))
+                ) : (
+                  <MenuItem>No Manufacturers</MenuItem>
+                )}
+              </Select>
 
-            </div>
-            <div>
-
-              <FormControl fullWidth variant="outlined" sx={{ mt: 2, height: 'auto' }}>
-                <InputLabel sx={{ color: 'var(--font-color)', fontSize: '12px' }} shrink>
-                  Equipment Types [{eqTypes.length}]
-                </InputLabel>
-                <Select
-                  displayEmpty
-                  value={selectedEqType}
-                  className='nz-searchcombo'
-                  onChange={handleEqTypeChange}
-                  input={
-                    <OutlinedInput
-                      notched
-                      label={`Equipment Types [${eqTypes.length}]`}
-                      sx={{
-                        color: 'var(--font-color)',
-                        fontSize: '12px',
-                        height: 'auto',
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                          borderColor: 'var(--font-color)',
-                        },
-                        '& .MuiInputBase-input': {
-                          fontSize: '12px',
-                          padding: '12px',
-                        },
-                      }}
-                    />
-                  }
-                  renderValue={(selected) => {
-                    if (!selected) {
-                      return <h1>All</h1>;
-                    }
-                    return selected as string;
-                  }}
-                >
-                  {eqTypes.length > 0 && (
-                    <MenuItem value="" sx={{ fontSize: '12px' }}>
-                      <h1>All</h1>
-                    </MenuItem>
-                  )}
-                  {eqTypes.length > 0 ? (
-                    eqTypes.map((eqtype: any) => (
-                      <MenuItem
-                        key={eqtype} // Ensure key is a string or number
-                        value={eqtype} // Ensure value matches the type of selectedEqType
-                        sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}
-                      >
-                        {eqtype}
-                      </MenuItem>
-                    ))
-                  ) : (
-                    <MenuItem disabled sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif' }}>
-                      No Equipment Types Available
-                    </MenuItem>
-                  )}
-                </Select>
-              </FormControl>
-            </div>
+            </FormControl>
 
 
-            <div>
 
-              <FormControl fullWidth variant="outlined" sx={{ mt: 2, height: 'auto' }}>
-                <InputLabel
-                  sx={{ color: 'var(--font-color)', fontSize: '12px' }}
-                  shrink
-                >
-                  Product Lines [{productLine.length}]
-                </InputLabel>
-                <Select
-                  displayEmpty
-                  value={selectedProductLine}
-                  className='nz-searchcombo'
-                  onChange={handleproductlinechange}
-                  input={<OutlinedInput notched label=" Product Lines [0]"
+            <FormControl fullWidth variant="outlined" sx={{ mt: 2, height: 'auto' }}>
+              <InputLabel sx={{ color: 'var(--font-color)', fontSize: '12px' }} shrink>
+                Equipment Types [{eqTypes.length}]
+              </InputLabel>
+              <Select
+                displayEmpty
+                value={selectedEqType}
+                className='nz-searchcombo'
+                onChange={handleEqTypeChange}
+                input={
+                  <OutlinedInput
+                    notched
+                    label={`Equipment Types [${eqTypes.length}]`}
                     sx={{
                       color: 'var(--font-color)',
                       fontSize: '12px',
@@ -753,89 +647,145 @@ const SearchComponent = () => {
                         padding: '12px',
                       },
                     }}
-                  />}
-
-                  renderValue={(selected) => {
-                    if (!selected) {
-                      return <h1>All</h1>
-                    }
-                    return selected as string
-                  }}
-                >
-                  {productLine.length > 0 && (
-
-                    <MenuItem value="" sx={{ fontSize: '12px' }}>
-                      <h1>All</h1>
+                  />
+                }
+                renderValue={(selected) => {
+                  if (!selected) {
+                    return <h1>All</h1>;
+                  }
+                  return selected as string;
+                }}
+              >
+                {eqTypes.length > 0 && (
+                  <MenuItem value="" sx={{ fontSize: '12px' }}>
+                    <h1>All</h1>
+                  </MenuItem>
+                )}
+                {eqTypes.length > 0 ? (
+                  eqTypes.map((eqtype: any) => (
+                    <MenuItem
+                      key={eqtype} 
+                      value={eqtype} 
+                      sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}
+                    >
+                      {eqtype}
                     </MenuItem>
-                  )}
-                  {productLine.length > 0 ? (
-                    productLine.map((productLine: any) => (
-                      <MenuItem key={productLine} value={productLine} sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}>
-                        {productLine}
-                      </MenuItem>
-                    ))
-                  ) : (
-                    <MenuItem disabled sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif' }}>No product line available</MenuItem>
-                  )}
-                </Select>
-              </FormControl>
-            </div>
-            <div>
-              <FormControl fullWidth variant="outlined" sx={{ mt: 2, height: 'auto' }}>
-                <InputLabel
-                  sx={{ color: 'var(--font-color)', fontSize: '12px' }}
-                  shrink
-                >
-                  Product Numbers [{productNumber.length}]
-                </InputLabel>
-                <Select
-                  displayEmpty
-                  value={selectedProductNumber}
-                  onChange={handleproductnumber}
-                  className='nz-searchcombo'
-                  input={<OutlinedInput notched label="Product Numbers [0]"
-                    sx={{
-                      color: 'var(--font-color)',
+                  ))
+                ) : (
+                  <MenuItem disabled sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif' }}>
+                    No Equipment Types Available
+                  </MenuItem>
+                )}
+              </Select>
+            </FormControl>
+
+
+            <FormControl fullWidth variant="outlined" sx={{ mt: 2, height: 'auto' }}>
+              <InputLabel
+                sx={{ color: 'var(--font-color)', fontSize: '12px' }}
+                shrink
+              >
+                Product Lines [{productLine.length}]
+              </InputLabel>
+              <Select
+                displayEmpty
+                value={selectedProductLine}
+                className='nz-searchcombo'
+                onChange={handleproductlinechange}
+                input={<OutlinedInput notched label=" Product Lines [0]"
+                  sx={{
+                    color: 'var(--font-color)',
+                    fontSize: '12px',
+                    height: 'auto',
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'var(--font-color)',
+                    },
+                    '& .MuiInputBase-input': {
                       fontSize: '12px',
-                      height: 'auto',
-                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'var(--font-color)',
-                      },
-                      '& .MuiInputBase-input': {
-                        fontSize: '12px',
-                        padding: '12px',
-
-                      },
-                    }}
-                  />}
-                  renderValue={(Pnumberselected) => {
-                    if (!Pnumberselected) {
-                      return <h1>All</h1>
-                    }
-                    return Pnumberselected as string
+                      padding: '12px',
+                    },
                   }}
-                >
-                  {productNumber.length > 0 && (
+                />}
 
-                    <MenuItem value="" sx={{ fontSize: '12px' }}>
-                      <h1>All</h1>
+                renderValue={(selected) => {
+                  if (!selected) {
+                    return <h1>All</h1>
+                  }
+                  return selected as string
+                }}
+              >
+                {productLine.length > 0 && (
+
+                  <MenuItem value="" sx={{ fontSize: '12px' }}>
+                    <h1>All</h1>
+                  </MenuItem>
+                )}
+                {productLine.length > 0 ? (
+                  productLine.map((productLine: any) => (
+                    <MenuItem key={productLine} value={productLine} sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}>
+                      {productLine}
                     </MenuItem>
-                  )}
-                  {productNumber.length > 0 ? (
-                    productNumber.map((pnumber: any) => (
-                      <MenuItem key={pnumber} value={pnumber} sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}>
-                        {pnumber}
-                      </MenuItem>
-                    ))
-                  ) : (
-                    <MenuItem disabled sx={{ fontSize: '12px' }}>No Product number Available</MenuItem>
-                  )}
-                </Select>
-              </FormControl>
-            </div>
+                  ))
+                ) : (
+                  <MenuItem disabled sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif' }}>No product line available</MenuItem>
+                )}
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth variant="outlined" sx={{ mt: 2, height: 'auto' }}>
+              <InputLabel
+                sx={{ color: 'var(--font-color)', fontSize: '12px' }}
+                shrink
+              >
+                Product Numbers [{productNumber.length}]
+              </InputLabel>
+              <Select
+                displayEmpty
+                value={selectedProductNumber}
+                onChange={handleproductnumber}
+                className='nz-searchcombo'
+                input={<OutlinedInput notched label="Product Numbers [0]"
+                  sx={{
+                    color: 'var(--font-color)',
+                    fontSize: '12px',
+                    height: 'auto',
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'var(--font-color)',
+                    },
+                    '& .MuiInputBase-input': {
+                      fontSize: '12px',
+                      padding: '12px',
+
+                    },
+                  }}
+                />}
+                renderValue={(Pnumberselected) => {
+                  if (!Pnumberselected) {
+                    return <h1>All</h1>
+                  }
+                  return Pnumberselected as string
+                }}
+              >
+                {productNumber.length > 0 && (
+
+                  <MenuItem value="" sx={{ fontSize: '12px' }}>
+                    <h1>All</h1>
+                  </MenuItem>
+                )}
+                {productNumber.length > 0 ? (
+                  productNumber.map((pnumber: any) => (
+                    <MenuItem key={pnumber} value={pnumber} sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}>
+                      {pnumber}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <MenuItem disabled sx={{ fontSize: '12px' }}>No Product number Available</MenuItem>
+                )}
+              </Select>
+            </FormControl>
+
 
           </Box>
-
           <Typography
             sx={{
               marginTop: '20px',
@@ -939,6 +889,8 @@ const SearchComponent = () => {
           )}
         </Box>
       )}
+      {/* </div> */}
+
     </div>
   );
 }

@@ -88,7 +88,6 @@ const StyledTableRow = styled(TableRow)({
   fontFamily: 'Segoe UI, sans-serif',
 });
 
-
 const PropertyTable: React.FC<PropertyTableProps> = ({
   propertyData = [],
   stencilResponse = '',

@@ -147,6 +147,7 @@ interface TreeNode {
   EQID?: string;
   Type?: string;
   isLeaf?: boolean;
+  ProductNumber?:string
 }
 
 /**
@@ -155,6 +156,7 @@ interface TreeNode {
  * @returns The transformed tree data.
  */
 export const transformToTreeData = (result: SearchResult[]): TreeNode[] => {
+  
   const tree: TreeNode[] = [
     {
       title: `Search Results [${result.length}]`,
@@ -251,6 +253,7 @@ export const transformToTreeData = (result: SearchResult[]): TreeNode[] => {
     );
 
     if (!prodNoNode) {
+    
       prodNoNode = {
         title: (
           <span title={MFGDESC} >
@@ -265,29 +268,12 @@ export const transformToTreeData = (result: SearchResult[]): TreeNode[] => {
         children: [],
         EQID:prodNoKey,
         Type: 'ProductNumber',
-        isLeaf: false
+        isLeaf: false,
+        ProductNumber:`${MFGPRODNO}`,
       };
       prodLineNode.children.push(prodNoNode);
     }
 
-    // const equipmentKey = `${MfgAcronym}-${EQTYPE}-${MFGPRODLINE}-${MFGPRODNO}-${EQID}`;
-    // const equipmentNode: TreeNode = {
-    //   title: MFGDESC,
-    //   key: equipmentKey,
-    //   EQID,
-    //   Type: "equipment",
-    //   isLeaf: true,
-    //   icon: (
-    //     <img
-    //       src="./assets/Icons/eq_description.png"
-    //       // alt="eq description"
-    //       style={{ width: 16, height: 16 }}
-    //     />
-    //   ),
-    //   children: [],
-    // };
-
-    // prodNoNode.children.push(equipmentNode);
   });
 
   return tree;

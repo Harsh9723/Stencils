@@ -43,13 +43,14 @@ const SvgWrapper = styled('div')(({ theme }) => ({
 
 interface SvgContentProps {
   svgContent: string;
+  productnumber: any[];
 }
 
-const SvgContent: React.FC<SvgContentProps> = ({ svgContent }) => {
+const SvgContent: React.FC<SvgContentProps> = ({ svgContent, productnumber }) => {
   const [shapeCounter, setShapeCounter] = useState(0);
   const svgRef = useRef<HTMLDivElement | null>(null);
 
-
+console.log('productnumber', productnumber)
   const handleDragStart = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     await insertSvgContentIntoOffice(svgContent, 'drag', shapeCounter);
@@ -62,6 +63,7 @@ const SvgContent: React.FC<SvgContentProps> = ({ svgContent }) => {
   };
 
   return (
+    <div>
     <StyledSvgCard>
       <SvgWrapper
         ref={svgRef}
@@ -72,10 +74,24 @@ const SvgContent: React.FC<SvgContentProps> = ({ svgContent }) => {
         }}
         onDragStart={handleDragStart}
         onDoubleClick={handleDoubleClick}
-        dangerouslySetInnerHTML={{ __html: svgContent }}
         title="Drag and Drop Or Double-click To Insert"
-      />
+      >
+        <div dangerouslySetInnerHTML={{ __html: svgContent }} />
+  
+        <h1 style={{ 
+          textAlign: 'center', 
+          marginTop: '0px', // Add spacing between svgContent and h1
+          width: '100%', 
+          fontSize:'12px',
+          color:'var(--font-color)'
+        }}>
+          {productnumber}
+        </h1>
+      </SvgWrapper>
     </StyledSvgCard>
+  </div>
+  
+
   );
 };
 

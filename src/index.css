@@ -2,42 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 
-.container {
-  background-color: var(--bg-color);
-  height: 100vh;
-  display: flex;
-  overflow: hidden;
-  flex-direction: column;
-  overflow-y: auto;
-  justify-content: flex-start;
-  font-family: 'Segoe UI', sans-serif;
-  align-items: center;
-  color: var(--font-color);
-  box-sizing: border-box;
-  padding: 9px;
-  width: 100%; 
-} */
-/* 
-@media (min-width: 600px) {
-  .container {
-    width: 90%;
-  }
-}
-
-@media (min-width: 900px) {
-  .container {
-    width: 100%; 
-  }
-}
-
-@media (min-width: 800px) {
-  .container {
-    width: 100%; 
-  }
-} */
-
-
 
 body, html {
   font-family: 'Segoe UI', sans-serif;
@@ -71,6 +35,9 @@ body, html {
     font-size: 12px;
     padding: 0px 5px
   }
+  .css-7u6v33-MuiTabs-root{
+    min-height: 25px;
+  }
   
   .css-1kdujqz-MuiFormControlLabel-root .MuiFormControlLabel-label {
     color: black;
@@ -84,13 +51,7 @@ body, html {
     width: 0; 
     height:0 ; 
   }
-  
-  .css-c6jp11-MuiButtonBase-root-MuiMenuItem-root {
-    min-height: auto !important;
-  }
-  
-  
-  
+
   .custom-rc-tree .rc-tree-switcher {
     display: none;
   }
@@ -106,13 +67,7 @@ body, html {
     display: none;
   }
   
-  /* Style for selected node */
-  .custom-rc-tree .rc-tree-node-selected {
-    background-color: #efefef !important; /* Set background color */
-    color: black !important; /* Set text color */
-    width: 100%; /* Ensure full width selection */
-  }
-  
+
   /* Ensure expand/collapse icons also match the selected node styles */
   .custom-rc-tree .rc-tree-node-selected .rc-tree-switcher {
     color: black !important; /* Set icon color */
@@ -121,22 +76,22 @@ body, html {
   
   /* Set rc-tree width to full */
   .custom-rc-tree {
-    width: 100%; /* Make the tree take full width */
+    width: 95%; /* Make the tree take full width */
   }
   
   /* Additional styling for rc-tree node content */
   .custom-rc-tree .rc-tree-node-content-wrapper {
-    font-size: 12px; /* Adjust font size */
-    font-family: "Segoe UI", sans-serif; /* Use Segoe UI font */
+    font-size: 12px; 
+    font-family: "Segoe UI", sans-serif; 
   }
   
   /* Custom global styles */
   .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
-    color: white !important;
+    color: rgb(255, 255, 255) !important;
   }
   
   .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
-    color: white !important;
+    color: rgb(255, 255, 255) !important;
   }
   
   .css-ptiqhd-MuiSvgIcon-root {
@@ -163,7 +118,7 @@ body, html {
   .custom-rc-tree .rc-tree-node-selected {
     background-color: #efefef !important; /* Set background color */
     color: black !important; /* Set text color */
-    width: 100%; /* Ensure full width selection */
+    width: 95%; /* Ensure full width selection */
     line-height: 0px;
     min-height: 10px !important;
   }
@@ -187,7 +142,7 @@ body, html {
   
   /* Set font color to white when the tab is selected */
   .MuiButtonBase-root.MuiTab-root.MuiTab-textColorPrimary.Mui-selected {
-    color: white !important; /* Set text color to white */
+    color: rgb(168, 202, 230) !important; /* Set text color to white */
   }
   
   
@@ -195,10 +150,9 @@ body, html {
     background-color: white !important; /* Set indicator background color to white */
   }
   
-  .rc-tree .rc-tree-treenode .rc-tree-node-content-wrapper{
+  /* .rc-tree .rc-tree-treenode .rc-tree-node-content-wrapper{
     vertical-align: middle;
-  
-  }
+  } */
   .MuiTabs-scroller{
     margin-top: 0px;
   }
@@ -207,18 +161,25 @@ body, html {
   }
   
   /* For Webkit browsers */
-  ::-webkit-scrollbar {
+  /* body { */
+    /* overflow-y: auto; Only shows vertical scrollbar when content overflows */
+    /* overflow-x: hidden; Avoid horizontal scrollbar unless necessary */
+  /* } */
+  
+  /* ::-webkit-scrollbar {
     width: 5px; /* Adjust width of the scrollbar */
-  }
+  /* } */
   
-  ::-webkit-scrollbar-thumb {
+  /* ::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.2); /* Scrollbar thumb color */
-    border-radius: 3px; /* Rounded corners for the scrollbar thumb */
-  }
+    /* border-radius: 3px; Rounded corners for the scrollbar thumb */
+  /* } */ */
   
-  ::-webkit-scrollbar-track {
-    background: var(--bg-color); /* Track color */
-  }
+  /* ::-webkit-scrollbar-track { */
+    /* background: var(--bg-color); Track color */
+  /* } */
+  
+
   .rc-tree .rc-tree-treenode{
     line-height: 0px;
   }
@@ -229,11 +190,11 @@ body, html {
   }
   .css-yp69yl-MuiButtonBase-root-MuiTab-root{
   
-    min-height: 26px !important
+    min-height: 10px !important
   }
   
   .css-1wy54b3-MuiButtonBase-root-MuiTab-root{
-    min-height: 26px !important
+    min-height: 10px !important
   
   }
   
@@ -259,7 +220,9 @@ body, html {
   color: var(--font-color);
   padding: 5px;
   box-sizing: border-box;
+  overflow: hidden;
 }
+
 
 /* Box styles */
 .setting-box {
@@ -271,17 +234,16 @@ body, html {
 }
 
 /* Typography styles */
-/* .setting-text {
+ .setting-text {
   font-size: 12px;
   font-family: 'Segoe UI', sans-serif;
   color: var(--font-color);
-} */
-
-/* .css-1edfpdg-MuiTypography-root{
+ }
+ .css-1edfpdg-MuiTypography-root{
   font-size: 12px;
   font-family: 'Segoe UI', sans-serif;
   color: var(--font-color);
-} */
+ }
 .css-1edfpdg-MuiTypography-root{
   font-size: 12px;
   font-family:'Segoe UI', sans-serif ;
@@ -289,7 +251,7 @@ body, html {
 /* Link styles */
 .setting-link {
   font-size: 12px;
-  color: rgb(125, 192, 218);
+  color: rgb(154, 211, 233);
   text-decoration: none;
 }
 
@@ -342,4 +304,59 @@ body, html {
 
 .custom-button:hover {
   background-color: #87CEEB;
+}
+
+
+
+.css-46bh2p-MuiCardContent-root:last-child{
+  padding-bottom: 16px !important;
+}
+
+.MuiTableBody-root{
+  display: flex !important;
+  flex-direction: column;
+  gap: 5px;
+
+}
+.MuiTableRow-root{
+  display: flex !important;
+  width: 100%;
+  border: 1px solid white !important;
+  border-radius: 0px !important;
+}
+
+.MuiTableCell-root{
+  width: 50%;
+  border: none !important;
+ 
+}
+
+.css-c49uqv-MuiPaper-root-MuiTableContainer-root{
+  border-radius: 0px !important;
+  background-color: #778899 !important;
+}
+
+
+.css-1xomo8h-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+  width: 100vw;
+  
+}
+
+.css-99wn1p-MuiList-root-MuiMenu-list{
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.css-763qkj-MuiTypography-root{
+  margin-top: 0px !important;
+  padding-right: 0px !important;
+}
+.css-1q964xs-MuiFormLabel-root-MuiInputLabel-root{
+  top : -5px !important;
+}
+
+
+.search-lbl>.MuiInputBase-root>.MuiOutlinedInput-notchedOutline>legend>span {
+  width: 38px !important;
 }
