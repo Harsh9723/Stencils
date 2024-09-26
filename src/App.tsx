@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import PreloadPage from './Components/PreloadPage';
 import MainPage from './Pages/MainPage';
 import './App.css';
+import PreloadPage from './Components/PreloadPage';
 
 declare global {
   interface Window {
@@ -40,7 +40,8 @@ const App: React.FC = () => {
 
   return (
     <div className='App'>
-       {showMainPage ? <MainPage /> : <PreloadPage />}       
+       {showMainPage ? <MainPage /> : <PreloadPage />}   
+     
     </div>
   );
 };

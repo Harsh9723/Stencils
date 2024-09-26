@@ -64,7 +64,7 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
   const [stencilResponse, setStencilResponse] = useState<string>('');
   const [Eqid, setEqId] = useState<string | string>('');
   const [shapeCounter, setShapeCounter] = useState<number>(0);
-  const [productnumber, setProductNumber]= useState<string[]>([])
+  const [productnumber, setProductNumber] = useState<string[]>([])
 
   useEffect(() => {
     if (initialTreeData) {
@@ -76,7 +76,7 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
 
         if (selectedNode.Type && selectedNode.EQID && isSelected === false && selectedNode.ProductNumber) {
           let result = await callApiforDeviceShapeStencilEqid(selectedNode)
-            setProductNumber(selectedNode.ProductNumber)
+          setProductNumber(selectedNode.ProductNumber)
           if (result && result.shapenodes?.length > 0) {
             setSelectedKeys([result.shapenodes[0].key])
             setSelectedNode(result.shapenodes[0])
@@ -135,15 +135,15 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
   };
 
   //set icons for tree
-  const switcherIcon: React.FC<TreeNodeProps> = ({ expanded, isLeaf,selected }) => {
+  const switcherIcon: React.FC<TreeNodeProps> = ({ expanded, isLeaf, selected }) => {
     if (isLeaf) {
       return null;
     }
-  
-    const svgColor = selected ? 'black' : 'var(--font-color)' ; // Choose colors based on expanded state
-  
+
+    const svgColor = selected ? 'black' : 'var(--font-color)'; // Choose colors based on expanded state
+
     return expanded ? (
-      <ReactSVG 
+      <ReactSVG
         src="./assets/Icons/Down_128x128.svg"
         beforeInjection={(svg) => {
           svg.setAttribute('fill', svgColor);  // Set the fill color
@@ -152,7 +152,7 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
         }}
       />
     ) : (
-      <ReactSVG 
+      <ReactSVG
         src="./assets/Icons/Down_128x128.svg"
         beforeInjection={(svg) => {
           svg.setAttribute('fill', svgColor);  // Set the fill color
@@ -183,7 +183,7 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
         Get3DShapes: true,
       });
       const shapesData = response.data.Data;
-      
+
       const shapeLeafNodes = shapesData.map((shape: any) => ({
         key: shape.ShapeID,
         title: (
@@ -498,23 +498,23 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
       await getStencilName(selectedNode.EQID);
       setSelectedKeys(autoSelectedKeys)
       setProductNumber(selectedNode.ProductNumber)
-    } else if (selectedNode.Type && selectedNode.EQID && isSelected === false && selectedNode.ProductNumber ) {
+    } else if (selectedNode.Type && selectedNode.EQID && isSelected === false && selectedNode.ProductNumber) {
       const result: any = await callApiforDeviceShapeStencilEqid(selectedNode);
 
       if (result?.shapenodes?.length > 0) {
         setSelectedKeys([String(result.shapenodes[0].key)]);
         setSelectedNode([result.shapenodes[0]]);
-      setProductNumber(selectedNode.ProductNumber)
-          console.log('1234556789', selectedNode.ProductNumber)
+        setProductNumber(selectedNode.ProductNumber)
+        console.log('1234556789', selectedNode.ProductNumber)
         if (result.shapenodes[0].ShapeID) {
           await callApiForGetDevicePreview(result.shapenodes[0].ShapeID);
         }
       }
-    } 
+    }
     else if (selectedNode.ShapeID && selectedNode.EqId) {
       await callApiForGetDevicePreview(selectedNode.ShapeID);
     }
-    
+
   };
 
   //logic 
@@ -674,8 +674,12 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
 
 
   return (
-    <div style={{ padding: '10px'}}>
-
+    <div className="tabs-container">
+      <Backdrop
+        className='backdrop'
+        open={isLoading}>
+        <CircularProgress className='circular-progress' />
+      </Backdrop>
       <Tabs
         value={tabValue}
         onChange={handleTabChange}
@@ -683,52 +687,24 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
           style: {
             display: 'none',
             color: 'var(--font-color)',
-          height:'10px'
-          }
+            height: '10px',
+          },
         }}
-        sx={{
-          minHeight: '26px',
-          padding: 0,
-          margin: 0,
-          height: '37px'
-        }}>
+        className="custom-tabs"
+      >
         <Tab
           label="Result"
           disableRipple
-          sx={{
-            fontSize: '12px',
-            fontFamily: '"Segoe UI", sans-serif',
-            textTransform: 'none',
-            color: 'var(--font-color)',
-            padding: '4px 8px',
-            height: '10px',
-            marginRight: '10px',
-          }} />
+          className="custom-tab"
+        />
         {relatedDevicesVisible && (
           <Tab
             label="Related"
             disableRipple
-            sx={{
-              fontSize: '12px',
-              fontFamily: '"Segoe UI", sans-serif',
-              textTransform: 'none',
-              color: 'var(--font-color)',
-              padding: '4px 8px',
-              minWidth: 'auto',
-            }}
+            className="custom-tab-related"
           />
         )}
       </Tabs>
-      <Backdrop
-          sx={{
-            color: '#fff',
-            zIndex: (theme) => theme.zIndex.drawer + 1,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          }}
-          open={isLoading}>
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
 
       {tabValue === 0 && (
         <>
@@ -753,6 +729,7 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
           )}
         </>
       )}
+
       {tabValue === 1 && relatedDevicesVisible && (
         <>
           <Tree
@@ -760,7 +737,7 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
             switcherIcon={switcherIcon}
             defaultExpandAll={false}
             showIcon={true}
-            className="custom-rc-tree w-[100%]"
+            className="custom-rc-tree"
             expandedKeys={relatedExpandedKeys}
             selectedKeys={relatedSelectedKeys}
             draggable
@@ -772,12 +749,13 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
           {(propertyData) && propertyData.length > 0 ? (
             <PropertyTable propertyData={propertyData} stencilResponse={stencilResponse} />
           ) : (
-            svgContent && svgContent.length > 0 && <SvgContent svgContent={svgContent} productnumber ={productnumber} />
+            svgContent && svgContent.length > 0 && <SvgContent svgContent={svgContent} productnumber={productnumber} />
           )}
         </>
       )}
 
     </div>
+
   );
 };
 

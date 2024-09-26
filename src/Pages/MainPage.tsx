@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Box, TextField, Typography, CircularProgress, Snackbar, TypographyProps } from '@mui/material';
+import { Box, TextField, Typography, CircularProgress, Snackbar, } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import data from '../Link.json'
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,7 +10,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import useTheme from '../Components/Theme';
 import axios from 'axios';
-import { Alert, Dialog, DialogActions, DialogContent, DialogTitle, FormGroup, Checkbox, Button, SelectChangeEvent } from '@mui/material';
+import { Alert, Dialog, DialogActions, Radio, RadioGroup, DialogContent, DialogTitle, FormGroup, Checkbox, Button, SelectChangeEvent } from '@mui/material';
 import { Search, transformToTreeData } from '../Common/CommonFunctions'
 import Treedata from './TreeData';
 import Setting from './Setting';
@@ -26,13 +24,10 @@ interface Manufacturer {
 interface EqType {
   eqtype: string,
 }
-
 interface ProductLine {
 
 }
-
 interface ProductNumber {
-
 }
 
 
@@ -53,7 +48,7 @@ const SearchComponent = () => {
   const [dtManufacturers, setDtManufacturers] = useState<Manufacturer[]>([]);
   const [selectedDtManufacturers, setSelectedDtManufacturers] = useState<string[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
-  const [treeData, setTreeData] = useState<any[]>([]); // Specify a more accurate type if possible
+  const [treeData, setTreeData] = useState<any[]>([]);
   const [showTreeComponent, setShowTreeComponent] = useState<boolean>(false);
   const [kwdSearchType, setKwdSearchType] = useState<string>('0');
   const [showSetting, setShowSetting] = useState<boolean>(false);
@@ -63,6 +58,7 @@ const SearchComponent = () => {
   const handleKwdSearchTypeChange = (event: any) => {
     setKwdSearchType(event.target.value);
   };
+
   const searchParams = {
     keyword,
     kwdSearchType,
@@ -76,6 +72,7 @@ const SearchComponent = () => {
   };
 
   const onSuccess = (resultData: any[], dtResultdata: any[]) => {
+    setLoading(false)
     if (dtResultdata && dtResultdata.length > 0) {
       console.log('Processing dtResultdata:', dtResultdata);
 
@@ -325,6 +322,7 @@ const SearchComponent = () => {
     setSnackbarOpen(false);
   };
   const handlesearch = () => {
+    setLoading(true)
     Search(searchParams, onSuccess, onError);
   };
 
@@ -332,64 +330,20 @@ const SearchComponent = () => {
     setShowTreeComponent(false);
   };
   return (
-    <div
-      style={{
-        backgroundColor: 'var(--bg-color)',
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        alignItems: 'center',
-        color: 'var(--font-color)',
-        padding: '10px',
-      }}>
+    <div className='main-page'>
 
       <Backdrop
-        sx={{
-          color: '#fff',
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        }}
+        className='backdrop'
         open={loading}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress className='circular-progress' />
       </Backdrop>
 
-      <Dialog
-        open={isDialogOpen}
-        onClose={() => handledialogclose()}
-        sx={{
-          fontSize: { xs: '10px', sm: '12px' },
-          fontFamily: '"Segoe UI", sans-serif'
-        }}
-      >
-        <DialogTitle
-          sx={{
-            fontSize: { xs: '10px', sm: '12px' },
-            fontFamily: '"Segoe UI", sans-serif'
-          }}
-        >
-          Select Manufacturers
-        </DialogTitle>
-        <DialogContent
-          sx={{
-            fontSize: { xs: '10px', sm: '12px' },
-            fontFamily: '"Segoe UI", sans-serif'
-          }}
-        >
-          <FormControl
-            component="fieldset"
-            sx={{
-              fontSize: { xs: '10px', sm: '12px' },
-              fontFamily: '"Segoe UI", sans-serif'
-            }} >
-            <FormGroup
-              sx={{
-                fontSize: { xs: '10px', sm: '12px' },
-                fontFamily: '"Segoe UI", sans-serif'
-              }}
-            >
+      <Dialog open={isDialogOpen} onClose={handledialogclose} className="dialog">
+        <DialogTitle className="dialog-title">Select Manufacturers</DialogTitle>
+        <DialogContent className="dialog-content">
+          <FormControl component="fieldset" className="form-control">
+            <FormGroup className="form-group">
               {dtManufacturers.map((manufacturer, index) => (
                 <FormControlLabel
                   key={index}
@@ -397,91 +351,57 @@ const SearchComponent = () => {
                     <Checkbox
                       checked={selectedDtManufacturers.includes(manufacturer.MfgAcronym)}
                       onChange={() => handleManufacturerSelection(manufacturer.MfgAcronym)}
-                      sx={{
-                        fontSize: { xs: '10px', sm: '12px' },
-                        fontFamily: '"Segoe UI", sans-serif'
-                      }}
                     />
                   }
                   label={manufacturer.Manufacturer}
-                  sx={{
-                    fontSize: { xs: '10px', sm: '12px' },
-                    fontFamily: '"Segoe UI", sans-serif'
-                  }}
+                  className="form-control-label"
                 />
               ))}
             </FormGroup>
           </FormControl>
         </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => handledialogclose()}
-            sx={{
-              fontSize: { xs: '10px', sm: '12px' },
-              fontFamily: '"Segoe UI", sans-serif'
-            }} >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => handleDialogSubmit()}
-            sx={{
-              fontSize: { xs: '10px', sm: '12px' },
-              fontFamily: '"Segoe UI", sans-serif'
-            }}>
-            OK
-          </Button>
+        <DialogActions className="dialog-actions">
+          <Button onClick={handledialogclose}>Cancel</Button>
+          <Button onClick={handleDialogSubmit}>OK</Button>
         </DialogActions>
       </Dialog>
-
       {!showTreeComponent && !showSetting ? (
 
         <>
-          <Box
-            sx={{
-              top: '0px',
-              margin: '2px',
-              display: 'flex',
-              alignItems: 'center',
-              width: '100%',
-            }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box className="box-container">
+            <Box className="icon-container">
               <>
-                <img src="./assets/Icons/NetZoom_Settings_128x128.svg" alt="" title='Setting' style={{ padding: 0, maxWidth: '20px', cursor: 'pointer', color: 'var(--font-color)' }} onClick={handleSettingClick} />
-                <Typography sx={{ marginLeft: '8px', whiteSpace: 'nowrap', fontSize: '12px' }}>Visit</Typography>
+                <img
+                  src="./assets/Icons/NetZoom_Settings_128x128.svg"
+                  alt=""
+                  title="Setting"
+                  className="icon"
+                  onClick={handleSettingClick}
+                />
+                <Typography className="visit-text">Visit</Typography>
                 <Typography
                   title="Visit VisioStencil website"
-                  sx={{
-                    marginLeft: '4px',
-                    cursor: 'pointer',
-                    color:'var(--link-color)',
-                    textDecoration: 'underline',
-                    whiteSpace: 'nowrap',
-                    fontSize: '12px',
-                  }}
-                  onClick={handleClick} >
+                  className="link-text"
+                  onClick={handleClick}
+                >
                   VisioStencils.com
                 </Typography>
               </>
             </Box>
           </Box>
+
           <Box
             component="form"
-            sx={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              padding: '4px',
-              mt:'7px',
-            }}
+            className='form-box'
             noValidate
           >
-            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', width: '100%' }}>
-              <div style={{ flexGrow: 1, padding: '1px', fontSize: '12px' }}>
+            <div className='search-input-container'>
+              <div className='search-field-wrapper'>
                 <TextField
                   id="outlined-basic"
-                  label='Search'
+                  label="Search"
                   value={keyword}
-                  className='nz-searchcombo search-lbl'
+                  className="nz-searchcombo search-lbl"
                   onChange={(e) => setKeyword(e.target.value)}
                   placeholder="By keyword"
                   onKeyDown={(event) => {
@@ -490,30 +410,16 @@ const SearchComponent = () => {
                     }
                   }}
                   fullWidth
-                  sx={{
-                    '.MuiInputLabel-root': {
-                      color: 'var(--font-color)',
-                      fontSize: '12px', // Set label font size
-                    },
-                    '.MuiOutlinedInput-root': {
-                      height: '40px', // Adjust height of TextField
-                      '& fieldset': {
-                        borderColor: 'var(--font-color)',
-                      },
-                      '&:hover fieldset': {
-                        borderColor: 'var(--font-color)',
-                      },
-                      '&.Mui-focused fieldset': {
-                        borderColor: 'var(--font-color)',
-                      },
-                    },
-                    '.MuiInputBase-input': {
-                      color: 'var(--font-color)',
-                      fontSize: '12px',
-                      padding: '6px 8px', // Adjust padding to decrease height
-                    },
-                    fontSize: '12px',
-                    color: 'var(--font-color)',
+                  InputProps={{
+                    className: 'text-field-input',
+                  }}
+                  InputLabelProps={{
+                    className: 'text-field-label',
+                  }}
+                  classes={{
+                    root: 'text-field-root',
+                    // notchedOutline: 'text-field-outline',
+                    // focused: 'text-field-focused',
                   }}
                 />
 
@@ -550,24 +456,40 @@ const SearchComponent = () => {
                   </Snackbar>
                 )}
               </div>
-
-              <div style={{ paddingLeft: '0px' }}>
+              <div className='search-icon' >
                 <img
                   src="./assets/Icons/Search_128x128.svg"
                   alt="Search"
-                  onClick={handlesearch}
-                  style={{
-                    cursor: 'pointer',
-                    width: '40px',
-                    height: '20px',
-                    color: 'var(font-color)',
-                  }}
+
+                  onClick={() => !loading && handlesearch()}
+                  className='search-icon'
                 />
               </div>
             </div>
+            <div className="form-container">
+              <FormControl component="fieldset" className="form-control">
+                <RadioGroup
+                  row
+                  className="radio-group"
+                  onChange={handleKwdSearchTypeChange}
+                  value={kwdSearchType}
+                >
+                  <FormControlLabel
+                    className="form-control-label"
+                    control={<Radio className="radio" id='radio' value="0" />}
+                    label="Any Word"
+                  />
+                  <FormControlLabel
+                    control={<Radio className="radio" id='radio' color="default" value="1" />}
+                    label="All Words"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </div>
+
 
             <FormControl variant='outlined' sx={{ mt: 2 }} >
-              <InputLabel sx={{ color: 'var(--font-color)', fontSize: '12px', height: 'auto' }} className='' shrink> Manufacturers[{manufacturers.length}]</InputLabel>
+              <InputLabel className='select-label' shrink> Manufacturers[{manufacturers.length}]</InputLabel>
               <Select
                 displayEmpty
                 value={selectedManufacturer}
@@ -575,18 +497,7 @@ const SearchComponent = () => {
                 className='nz-searchcombo'
 
                 input={<OutlinedInput label={`Manufacturers[${manufacturers.length}]`}
-                  sx={{
-                    color: 'var(--font-color)',
-                    fontSize: '12px',
-                    height: 'auto',
-                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'var(--font-color)',
-                    },
-                    '& .MuiInputBase-input': {
-                      fontSize: '12px',
-                      padding: '12px',
-                    },
-                  }}
+                  className='select-input'
                 />}
                 MenuProps={{
                   PaperProps: {
@@ -598,32 +509,31 @@ const SearchComponent = () => {
                 }}
                 renderValue={(selected: string) => {
                   if (!selected) {
-                    return <h1>All</h1>
+                    return <h1 className='default-all'>All</h1>
                   }
                   const selectedManufacturer = manufacturers.find(manufacturer => manufacturer.MfgAcronym === selected);
                   return selectedManufacturer ? selectedManufacturer.Manufacturer : 'All';
                 }}
               >
-                {manufacturers.length > 0 && (<MenuItem value="" sx={{ fontSize: '12px' }}><h1>All</h1></MenuItem>)}
+                {manufacturers.length > 0 && (<MenuItem value="" className="select-menu-item" ><h1>All</h1></MenuItem>)}
                 {manufacturers.length > 0 ? (
                   manufacturers.map((manufacturer) => (
                     <MenuItem key={manufacturer.MfgAcronym} value={manufacturer.MfgAcronym}
-                      sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}
+                      className="select-menu-item"
                     >
                       {manufacturer.Manufacturer}
                     </MenuItem>
                   ))
                 ) : (
-                  <MenuItem>No Manufacturers</MenuItem>
+                  <MenuItem disabled className="select-menu-item">No Manufacturers</MenuItem>
                 )}
               </Select>
 
             </FormControl>
 
 
-
             <FormControl fullWidth variant="outlined" sx={{ mt: 2, height: 'auto' }}>
-              <InputLabel sx={{ color: 'var(--font-color)', fontSize: '12px' }} shrink>
+              <InputLabel className='select-label' shrink>
                 Equipment Types [{eqTypes.length}]
               </InputLabel>
               <Select
@@ -635,44 +545,33 @@ const SearchComponent = () => {
                   <OutlinedInput
                     notched
                     label={`Equipment Types [${eqTypes.length}]`}
-                    sx={{
-                      color: 'var(--font-color)',
-                      fontSize: '12px',
-                      height: 'auto',
-                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'var(--font-color)',
-                      },
-                      '& .MuiInputBase-input': {
-                        fontSize: '12px',
-                        padding: '12px',
-                      },
-                    }}
+                    className='select-input'
                   />
                 }
                 renderValue={(selected) => {
                   if (!selected) {
-                    return <h1>All</h1>;
+                    return <h1 className="select-menu-item">All</h1>;
                   }
                   return selected as string;
                 }}
               >
                 {eqTypes.length > 0 && (
-                  <MenuItem value="" sx={{ fontSize: '12px' }}>
-                    <h1>All</h1>
+                  <MenuItem value="">
+                    <h1 className="select-menu-item">All</h1>
                   </MenuItem>
                 )}
                 {eqTypes.length > 0 ? (
                   eqTypes.map((eqtype: any) => (
                     <MenuItem
-                      key={eqtype} 
-                      value={eqtype} 
-                      sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}
+                      key={eqtype}
+                      value={eqtype}
+                      className="select-menu-item"
                     >
                       {eqtype}
                     </MenuItem>
                   ))
                 ) : (
-                  <MenuItem disabled sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif' }}>
+                  <MenuItem disabled className="select-menu-item">
                     No Equipment Types Available
                   </MenuItem>
                 )}
@@ -682,7 +581,7 @@ const SearchComponent = () => {
 
             <FormControl fullWidth variant="outlined" sx={{ mt: 2, height: 'auto' }}>
               <InputLabel
-                sx={{ color: 'var(--font-color)', fontSize: '12px' }}
+                className='select-label'
                 shrink
               >
                 Product Lines [{productLine.length}]
@@ -693,48 +592,38 @@ const SearchComponent = () => {
                 className='nz-searchcombo'
                 onChange={handleproductlinechange}
                 input={<OutlinedInput notched label=" Product Lines [0]"
-                  sx={{
-                    color: 'var(--font-color)',
-                    fontSize: '12px',
-                    height: 'auto',
-                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'var(--font-color)',
-                    },
-                    '& .MuiInputBase-input': {
-                      fontSize: '12px',
-                      padding: '12px',
-                    },
-                  }}
+                  className='select-input'
                 />}
 
                 renderValue={(selected) => {
                   if (!selected) {
-                    return <h1>All</h1>
+                    return <h1 className='default-all'>All</h1>
                   }
                   return selected as string
                 }}
               >
                 {productLine.length > 0 && (
 
-                  <MenuItem value="" sx={{ fontSize: '12px' }}>
-                    <h1>All</h1>
+                  <MenuItem value="">
+                    <h1 className="select-menu-item">All</h1>
                   </MenuItem>
                 )}
                 {productLine.length > 0 ? (
                   productLine.map((productLine: any) => (
-                    <MenuItem key={productLine} value={productLine} sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}>
+                    <MenuItem key={productLine} value={productLine} className="select-menu-item">
                       {productLine}
                     </MenuItem>
                   ))
                 ) : (
-                  <MenuItem disabled sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif' }}>No product line available</MenuItem>
+                  <MenuItem disabled className="select-menu-item">No product line available</MenuItem>
                 )}
               </Select>
             </FormControl>
 
+
             <FormControl fullWidth variant="outlined" sx={{ mt: 2, height: 'auto' }}>
               <InputLabel
-                sx={{ color: 'var(--font-color)', fontSize: '12px' }}
+                className='select-label'
                 shrink
               >
                 Product Numbers [{productNumber.length}]
@@ -745,19 +634,7 @@ const SearchComponent = () => {
                 onChange={handleproductnumber}
                 className='nz-searchcombo'
                 input={<OutlinedInput notched label="Product Numbers [0]"
-                  sx={{
-                    color: 'var(--font-color)',
-                    fontSize: '12px',
-                    height: 'auto',
-                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'var(--font-color)',
-                    },
-                    '& .MuiInputBase-input': {
-                      fontSize: '12px',
-                      padding: '12px',
-
-                    },
-                  }}
+                  className='select-input'
                 />}
                 renderValue={(Pnumberselected) => {
                   if (!Pnumberselected) {
@@ -768,33 +645,27 @@ const SearchComponent = () => {
               >
                 {productNumber.length > 0 && (
 
-                  <MenuItem value="" sx={{ fontSize: '12px' }}>
-                    <h1>All</h1>
+                  <MenuItem value="">
+                    <h1 className="select-menu-item">All</h1>
                   </MenuItem>
                 )}
                 {productNumber.length > 0 ? (
                   productNumber.map((pnumber: any) => (
-                    <MenuItem key={pnumber} value={pnumber} sx={{ fontSize: '12px', fontFamily: 'Segoe UI, sans-serif', color: 'var(--black-font)' }}>
+                    <MenuItem key={pnumber} value={pnumber} className="select-menu-item">
                       {pnumber}
                     </MenuItem>
                   ))
                 ) : (
-                  <MenuItem disabled sx={{ fontSize: '12px' }}>No Product number Available</MenuItem>
+                  <MenuItem disabled className="select-menu-item">No Product number Available</MenuItem>
                 )}
               </Select>
             </FormControl>
 
 
           </Box>
+
           <Typography
-            sx={{
-              marginTop: '20px',
-              fontSize: { xs: '12px', sm: '15px' },
-              fontWeight: 'bold',
-              textAlign: 'center',
-              fontFamily: 'Segoe UI, sans-serif',
-              padding: '0 12px',
-            }}
+            className='typography-title'
           >
             Now you can create professional quality Visio Diagrams and PowerPoint Presentations using High Quality Shapes and Stencils.
           </Typography>
@@ -802,42 +673,25 @@ const SearchComponent = () => {
 
       ) : showSetting ? (
         <>
-          <Box
-            sx={{
-              width: '100%',
-              height: '100vh',
-              marginTop: '0px',
-              padding: '0px',
-            }}
-          >
-            <Box sx={{ display: 'flex', alignItems: 'center', }}>
-              <img
-                src="./assets/Icons/Left_128x128.svg"
-                alt="Back"
-                onClick={backfromsetting}
-                title='Back'
-                style={{
-                  width: '18px',
-                  cursor: 'pointer',
-                  height: '20px',
-                  marginRight: '4px'
-                }}
-              />
+          <Box className='render-container-mainpage'>
+            <Box className='box-container'>
+              <Box className='icon-container'>
+                <img
+                  src="./assets/Icons/Left_128x128.svg"
+                  alt="Back"
+                  onClick={backfromsetting}
+                  title='Back'
+                  className='icon'
+                />
 
-              <Typography sx={{ marginLeft: '6px', whiteSpace: 'nowrap', fontSize: '12px' }}>Visit</Typography>
-              <Typography
-                title="Visit VisioStencil website"
-                sx={{
-                  marginLeft: '8px',
-                  cursor: 'pointer',
-                  textDecoration: 'underline',
-                  color:'var(--link-color)',
-                  whiteSpace: 'nowrap',
-                  fontSize: '12px'
-                }}
-                onClick={handleClick}>
-                VisioStencils.com
-              </Typography>
+                <Typography className='visit-text'>Visit</Typography>
+                <Typography
+                  title="Visit VisioStencil website"
+                  className='link-text'
+                  onClick={handleClick}>
+                  VisioStencils.com
+                </Typography>
+              </Box>
             </Box>
           </Box>
           <Setting />
@@ -845,43 +699,29 @@ const SearchComponent = () => {
 
       ) : (
         <Box
-          sx={{
-            display: showTreeComponent ? 'block' : 'none',
-            width: '100%',
-            height: '100vh',
-            marginTop: '0px',
-            padding: '0px',
-          }}
+          className='render-container-mainpage'
+          display={showTreeComponent ? 'block' : 'none'}
         >
           {showTreeComponent && treeData.length > 0 ? (
             <>
-              <Box sx={{ display: 'flex', alignItems: 'center', }}>
-                <img
-                  src="./assets/Icons/Left_128x128.svg"
-                  alt="Back"
-                  onClick={handleBackClick}
-                  title='Back'
-                  style={{
-                    width: '18px',
-                    cursor: 'pointer',
-                    height: '20px',
-                    marginRight: '4px'
-                  }}
-                />
+              <Box className='box-container'>
+                <Box className='icon-container'>
+                  <img
+                    src="./assets/Icons/Left_128x128.svg"
+                    alt="Back"
+                    onClick={handleBackClick}
+                    title='Back'
+                    className="icon"
+                  />
 
-                <Typography sx={{ marginLeft: '8px', whiteSpace: 'nowrap', fontSize: '12px' }}>Visit</Typography>
-                <Typography
-                  title="Visit VisioStencil website"
-                  sx={{
-                    marginLeft: '8px',
-                    cursor: 'pointer',
-                    textDecoration: 'underline',
-                    whiteSpace: 'nowrap',
-                    fontSize: '12px'
-                  }}
-                  onClick={handleClick}>
-                  VisioStencils.com
-                </Typography>
+                  <Typography className='visit-text'>Visit</Typography>
+                  <Typography
+                    title="Visit VisioStencil website"
+                    className="link-text"
+                    onClick={handleClick}>
+                    VisioStencils.com
+                  </Typography>
+                </Box>
               </Box>
               <Treedata treeData={treeData} />
             </>
@@ -890,8 +730,6 @@ const SearchComponent = () => {
           )}
         </Box>
       )}
-      {/* </div> */}
-
     </div>
   );
 }

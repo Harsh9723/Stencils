@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import useTheme from './Theme';
 import data from '../Link.json';
 
+
 function PreloadPage() {
-  const [bgSize, setBgSize] = useState('contain');
-  const [fontSize, setFontSize] = useState('25px'); 
+  const [bgSizeClass, setBgSizeClass] = useState('bg-size-contain');
+  const [fontSizeClass, setFontSizeClass] = useState('font-size-25'); 
 
   const Color = `${data.colortheme.split(',')[0]}80`;
 
@@ -19,14 +20,14 @@ function PreloadPage() {
       const width = window.innerWidth;
 
       if (width < 600) {
-        setBgSize('100%');
-        setFontSize('20px');
+        setBgSizeClass('bg-size-100');
+        setFontSizeClass('font-size-20');
       } else if (width < 900) {
-        setBgSize('90%');
-        setFontSize('30px');
+        setBgSizeClass('bg-size-90');
+        setFontSizeClass('font-size-30');
       } else {
-        setBgSize('100%');
-        setFontSize('35px');
+        setBgSizeClass('bg-size-100');
+        setFontSizeClass('font-size-35');
       }
     };
 
@@ -39,62 +40,29 @@ function PreloadPage() {
     };
   }, []);
 
- 
-
   return (
     <div
+      className={`preload-container ${bgSizeClass}`}
       style={{
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-        width: '100vw',
         backgroundImage: `url(${data.backdrop})`,
-        backgroundSize: bgSize,
         backgroundColor: 'var(--bg-color)',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
       }}
     >
       <div
+        className="overlay"
         style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
           backgroundColor: Color,
         }}
       ></div>
 
-      <div
-        style={{
-          position: 'absolute',
-          top: '1rem',
-          left: '3rem',
-          cursor: 'pointer',
-        }}
-        onClick={handleclick}
-      >
-        <img src={data.logoicon} alt={data.logoalt} style={{ height: '3.5rem' }} />
+      <div className="logo" onClick={handleclick}>
+        <img src={data.logoicon} alt={data.logoalt} />
       </div>
 
-      <div style={{ position: 'relative', textAlign: 'center', color: 'white' }}>
-        <h1
-          style={{
-            color: 'white',
-            marginTop: '10px',
-            fontWeight: 'bold',
-            fontSize: fontSize,
-            fontFamily: 'Segoe UI, sans-serif',
-          }}
-        >
-          Add-In for Stencils
-        </h1>
+      <div className="title">
+        <h1 className={fontSizeClass}>Add-In for Stencils</h1>
       </div>
     </div>
-
   );
 }
 

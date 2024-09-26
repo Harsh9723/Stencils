@@ -12,6 +12,7 @@ import {
   Snackbar,
   TableContainerProps,
 } from '@mui/material';
+; // Import your CSS file
 
 interface PropertyDataItem {
   GroupName: string;
@@ -68,21 +69,9 @@ const StyledTableCellBody = styled(TableCell)({
   fontFamily: 'Segoe UI, sans-serif',
 });
 
-const CopyIconWrapper = styled('div')({
-  position: 'absolute',
-  right: '8px',
-  top: '50%',
-  transform: 'translateY(-50%)',
-  opacity: 0,
-  transition: 'opacity 0.3s',
-});
-
 const StyledTableRow = styled(TableRow)({
   '&:hover': {
     backgroundColor: '#ffffff',
-  },
-  '&:hover .copy-icon': {
-    opacity: 1,
   },
   fontSize: '12px',
   fontFamily: 'Segoe UI, sans-serif',
@@ -110,15 +99,9 @@ const PropertyTable: React.FC<PropertyTableProps> = ({
         open={snackbarOpen}
         autoHideDuration={3000}
         onClose={handleSnackbarClose}
-        message={
-          <span style={{ color: '#000000' }}>
-            Content copied to clipboard
-          </span>
-        }
+        message={<span className="snackbar-message">Content copied to clipboard</span>}
         ContentProps={{
-          style: {
-            backgroundColor: 'var(--font-color)',
-          },
+          className: 'snackbar-content',
         }}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       />
@@ -131,49 +114,39 @@ const PropertyTable: React.FC<PropertyTableProps> = ({
                 {propertyData
                   .filter((item) => item.GroupName === 'Basic')
                   .map((item, index) => (
-                    <StyledTableRow key={index}>
+                    <StyledTableRow key={index} className="styled-table-row">
                       <StyledTableCellHeader component="th" scope="row">
                         {item.pLabel}
                       </StyledTableCellHeader>
                       <StyledTableCellBody>
                         {item.pValue}
-                        <CopyIconWrapper
-                          className="copy-icon"
+                        <div
+                          className="copy-icon-wrapper"
                           onClick={() => copyToClipboard(item.pValue)}
                         >
                           <img
                             src="/assets/Icons/Copy.svg"
                             alt="Copy Icon"
-                            style={{
-                              width: '16px',
-                              height: '16px',
-                              cursor: 'pointer',
-                            }}
                           />
-                        </CopyIconWrapper>
+                        </div>
                       </StyledTableCellBody>
                     </StyledTableRow>
                   ))}
-                <StyledTableRow>
+                <StyledTableRow className="styled-table-row">
                   <StyledTableCellHeader component="th" scope="row">
                     Stencil
                   </StyledTableCellHeader>
                   <StyledTableCellBody>
                     {stencilResponse}
-                    <CopyIconWrapper
-                      className="copy-icon"
+                    <div
+                      className="copy-icon-wrapper"
                       onClick={() => copyToClipboard(stencilResponse)}
                     >
                       <img
                         src="/assets/Icons/Copy.svg"
                         alt="Copy Icon"
-                        style={{
-                          width: '16px',
-                          height: '16px',
-                          cursor: 'pointer',
-                        }}
                       />
-                    </CopyIconWrapper>
+                    </div>
                   </StyledTableCellBody>
                 </StyledTableRow>
               </TableBody>
