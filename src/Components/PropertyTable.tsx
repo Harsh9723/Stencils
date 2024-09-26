@@ -99,6 +99,7 @@ const PropertyTable: React.FC<PropertyTableProps> = ({
         open={snackbarOpen}
         autoHideDuration={3000}
         onClose={handleSnackbarClose}
+        className='snackbar'
         message={<span className="snackbar-message">Content copied to clipboard</span>}
         ContentProps={{
           className: 'snackbar-content',

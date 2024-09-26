@@ -628,12 +628,13 @@ color: #000000 !important;
 
 /* property table */
 .snackbar-message {
-  color: #000000;
+  color: #050505;
   background-color: #ffffff;
 }
 
 .snackbar-content {
-  background-color: var(--font-color);
+  background-color: var(--font-color) !important;
+  color: var(--font-color);
 }
 
 .copy-icon-wrapper {
@@ -645,6 +646,7 @@ color: #000000 !important;
   transition: opacity 0.3s;
   cursor: pointer;
 }
+
 
 .copy-icon-wrapper img {
   width: 16px;
@@ -734,14 +736,15 @@ color: #000000 !important;
 .svg-card {
   background-color: #778899 !important;
   margin-top: 20px;
-  border-radius: 8px;
+  position: relative !important;
+  border-radius: 8px; 
   color: white;
   font-size: 12px;
   font-family: 'Segoe UI', sans-serif;
   padding: 20px;
-  display: flex;
-  justify-content: center;
+  justify-content: center !important;
   align-items: center;
+  justify-content: space-between;
 }
 
 .svg-card-sm {
@@ -753,6 +756,8 @@ color: #000000 !important;
   margin: 0 auto;
   width: 100%;
   max-width: 100%;
+  justify-content: flex-end !important;
+  align-items: center;
 }
 
 .svg-wrapper svg {
@@ -768,15 +773,32 @@ color: #000000 !important;
 .svg-wrapper-sm svg {
   max-height: 200px;
 }
-
+.pnumber-div{
+  display: flex;
+justify-content: center !important;
+}
 .product-number {
   text-align: center;
+  position: absolute;
   margin-top: 0;
   width: 100%;
-  font-size: 12px;
+  font-size: 12px !important;
   color: var(--font-color);
   font-weight: bold;
+  /* bottom: 0.2%; */
 }
+
+@media (max-width: 600px) { /* Adjust based on your breakpoint */
+  .product-number {
+    font-size: 12px; /* Smaller screen size */
+  }
+}
+@media (max-width: 300px) { /* Adjust based on your breakpoint */
+  .product-number {
+    font-size: 10px !important; 
+  }
+}
+
 
 .rc-tree-title{
   font-weight: 500 !important;
@@ -813,3 +835,17 @@ color: #000000 !important;
   font-size: 12px;
 }
 
+.custom-text-field .MuiInputBase-root {
+  color: var(--font-color); /* Modify text field input color */
+}
+
+.custom-text-field .MuiInputLabel-root {
+  color: var(--font-color);
+font-family: 'Segoe UI', sans-serif;
+font-size: 12px;
+margin-top: 2px;
+}
+
+.custom-text-field .MuiOutlinedInput-root {
+  border-radius: 7px; /* Set border radius for the input field */
+}

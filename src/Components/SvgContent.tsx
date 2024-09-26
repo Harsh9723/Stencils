@@ -35,36 +35,43 @@ const SvgContent: React.FC<SvgContentProps> = ({ svgContent, productnumber }) =>
       }
     };
 
-    handleResize(); // Initialize on load
-    window.addEventListener('resize', handleResize); // Update on resize
+    handleResize(); 
+    window.addEventListener('resize', handleResize); 
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
-    <div>
-      <Card className={`svg-card ${screenSize === 'small' ? 'svg-card-sm' : ''}`}>
-        <div
-          ref={svgRef}
-          className={`svg-wrapper ${screenSize === 'medium' ? 'svg-wrapper-md' : ''} ${
-            screenSize === 'small' ? 'svg-wrapper-sm' : ''
-          }`}
-          draggable
-          onDragOver={(e: React.DragEvent<HTMLDivElement>) => {
-            e.preventDefault();
-            console.log('Dragging over the target');
-          }}
-          onDragStart={handleDragStart}
-          onDoubleClick={handleDoubleClick}
-          title="Drag and Drop Or Double-click To Insert"
-        >
-          <div dangerouslySetInnerHTML={{ __html: svgContent }} />
+      
+        <div className={`svg-card ${screenSize === 'small' ? 'svg-card-sm' : ''}`}>
 
-          {/* Product Number displayed outside SVG */}
-          <h1 className="product-number">{productnumber}</h1>
-        </div>
-      </Card>
-    </div>
+            <div
+            ref={svgRef}
+            className={`svg-wrapper ${screenSize === 'medium' ? 'svg-wrapper-md' : ''} ${
+              screenSize === 'small' ? 'svg-wrapper-sm' : ''
+            }`}
+            draggable
+            onDragOver={(e: React.DragEvent<HTMLDivElement>) => {
+              e.preventDefault();
+              console.log('Dragging over the target');
+            }}
+            onDragStart={handleDragStart}
+            onDoubleClick={handleDoubleClick}
+            title="Drag and Drop Or Double-click To Insert"
+            dangerouslySetInnerHTML={{ __html: svgContent }}
+            >
+            </div>
+
+            <div className='pnumber-div'>
+            <h1 className="product-number">{productnumber}</h1>
+            </div>
+
+
+            </div>
+
+    
+   
+
   );
 };
 

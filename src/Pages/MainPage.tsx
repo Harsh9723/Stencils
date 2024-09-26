@@ -76,7 +76,6 @@ const SearchComponent = () => {
     if (dtResultdata && dtResultdata.length > 0) {
       console.log('Processing dtResultdata:', dtResultdata);
 
-      // Update state with dtResultdata
       setDtManufacturers(dtResultdata);
       setIsDialogOpen(true);
       return;
@@ -401,7 +400,7 @@ const SearchComponent = () => {
                   id="outlined-basic"
                   label="Search"
                   value={keyword}
-                  className="nz-searchcombo search-lbl"
+                  className="nz-searchcombo search-lbl custom-text-field"
                   onChange={(e) => setKeyword(e.target.value)}
                   placeholder="By keyword"
                   onKeyDown={(event) => {
@@ -410,18 +409,8 @@ const SearchComponent = () => {
                     }
                   }}
                   fullWidth
-                  InputProps={{
-                    className: 'text-field-input',
-                  }}
-                  InputLabelProps={{
-                    className: 'text-field-label',
-                  }}
-                  classes={{
-                    root: 'text-field-root',
-                    // notchedOutline: 'text-field-outline',
-                    // focused: 'text-field-focused',
-                  }}
                 />
+
 
 
 
@@ -489,7 +478,7 @@ const SearchComponent = () => {
 
 
             <FormControl variant='outlined' sx={{ mt: 2 }} >
-              <InputLabel className='select-label' shrink> Manufacturers[{manufacturers.length}]</InputLabel>
+              <InputLabel className='select-label' shrink> Manufacturers  [{manufacturers.length}]</InputLabel>
               <Select
                 displayEmpty
                 value={selectedManufacturer}
@@ -584,7 +573,7 @@ const SearchComponent = () => {
                 className='select-label'
                 shrink
               >
-                Product Lines [{productLine.length}]
+                ProductLines [{productLine.length}]
               </InputLabel>
               <Select
                 displayEmpty

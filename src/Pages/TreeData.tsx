@@ -100,7 +100,6 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
     }
   }, [initialTreeData]);
 
-  //function of autoExpand
   const autoExpandDefaultNodesOfTree = async (treeData: TreeNodeType[]) => {
     let expKeys: any[] = [];
     let selKeys: any[] = [];
@@ -479,7 +478,6 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
         setEqId('');
         setRelatedDevicesVisible(false);
       } else if (node.EQID && node.Type) {
-        setRelatedDevicesVisible(true)
         await RelatedandLibraryProperty(node.EQID);
         await getStencilName(node.EQID);
       }
@@ -590,9 +588,9 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
   const handleTabChange = async (event: React.ChangeEvent<{}>, newValue: number) => {
     setTabValue(newValue);
     if (newValue === 1) {
-      setIsLoading(true);
       setPropertyData([]);
       setSvgContent(null);
+      setIsLoading(true);
       Search({ Eqid, related: true }, onRelatedSuccess, onerror);
       setIsLoading(false);
       setProductNumber([])
@@ -621,6 +619,7 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
   };
 
   const onRelatedSuccess = async (resultData: any) => {
+    setIsLoading(true)
     try {
       const RelatedTree = transformToTreeData(resultData);
       console.log('Related Tree:', resultData);
@@ -648,6 +647,7 @@ const Treedata: React.FC<TreeDataProps> = ({ treeData: initialTreeData }) => {
     } catch (error) {
       console.error('Error handling related tree data:', error);
     }
+    setIsLoading(false)
   };
   const onerror = () => {
     console.log('related tree not found')
