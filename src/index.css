@@ -65,15 +65,15 @@ body, html {
     
   }
 
-  /* Ensure expand/collapse icons also match the selected node styles */
+
   .custom-rc-tree .rc-tree-node-selected .rc-tree-switcher {
     color: black !important; /* Set icon color */
-    /* background-color: #efefef !important;  Set background color */
+
   }
   
   /* Set rc-tree width to full */
   .custom-rc-tree {
-    width: 95%; /* Make the tree take full width */
+    width: 95%; 
   }
   
   /* Additional styling for rc-tree node content */
@@ -113,8 +113,8 @@ body, html {
   
   /* Style for selected node */
   .custom-rc-tree  .rc-tree-treenode-selected{
-    background-color: var(--font-color) !important; /* Set background color */
-    color: black !important; /* Set text color */
+    background-color: var(--font-color) !important; 
+    color: black !important; 
     width: 100%; 
     line-height: 0px;
     min-height: 10px !important;
@@ -141,13 +141,13 @@ body, html {
   
   /* Ensure icons inside selected nodes match the background */
   .custom-rc-tree .rc-tree-node-selected .rc-tree-iconEle {
-    background-color: #efefef !important; /* Match background color */
+    background-color: #efefef !important; 
   }
   
   /* Set icon styles for selected nodes */
   .custom-rc-tree .rc-tree-node-selected .css-i4bv87-MuiSvgIcon-root {
-    color: black !important; /* Set icon color */
-    background-color: #efefef !important;  /* Set background color */
+    color: black !important; 
+    background-color: #efefef !important;  
   }
   
   .MuiButtonBase-root.MuiTab-root.MuiTab-textColorPrimary.Mui-selected {
@@ -199,15 +199,12 @@ body, html {
 /* Container styles */
 .setting-container {
   background-color: var(--bg-color);
-  /* min-height: 100vh; */
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
   align-items: center;
   color: var(--font-color);
   padding: 5px;
-  /* box-sizing: border-box; */
   overflow: hidden;
 }
 
@@ -229,11 +226,7 @@ body, html {
   color: var(--font-color);
   font-weight: 500 !important;
  }
- /* .css-1edfpdg-MuiTypography-root{
-  font-size: 12px;
-  font-family: 'Segoe UI', sans-serif;
-  color: var(--font-color);
- } */
+
 .css-1edfpdg-MuiTypography-root{
   font-size: 12px;
   font-family:'Segoe UI', sans-serif ;
@@ -597,7 +590,7 @@ color: #000000 !important;
 .backdrop {
   color: #fff;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: var(--mui-zindex-drawer, 1201); /* Or a custom value */
+  z-index: var(--mui-zindex-drawer, 1201); 
 }
 
 .circular-progress {
@@ -615,12 +608,12 @@ color: #000000 !important;
   text-align: center !important;
   font-family: 'Segoe UI', sans-serif !important;
   padding: 0 12px !important;
-  font-size: 15px !important;  /* Default for larger screens */
+  font-size: 15px !important;  
 }
 
-@media (max-width: 600px) { /* Adjust based on your breakpoint */
+@media (max-width: 600px) { 
   .typography-title {
-    font-size: 12px; /* Smaller screen size */
+    font-size: 12px;
   }
 }
 
@@ -788,12 +781,12 @@ justify-content: center !important;
   /* bottom: 0.2%; */
 }
 
-@media (max-width: 600px) { /* Adjust based on your breakpoint */
+@media (max-width: 600px) { 
   .product-number {
-    font-size: 12px; /* Smaller screen size */
+    font-size: 12px; 
   }
 }
-@media (max-width: 300px) { /* Adjust based on your breakpoint */
+@media (max-width: 300px) { 
   .product-number {
     font-size: 10px !important; 
   }
@@ -836,7 +829,7 @@ justify-content: center !important;
 }
 
 .custom-text-field .MuiInputBase-root {
-  color: var(--font-color); /* Modify text field input color */
+  color: var(--font-color); 
 }
 
 .custom-text-field .MuiInputLabel-root {
@@ -847,5 +840,5 @@ margin-top: 2px;
 }
 
 .custom-text-field .MuiOutlinedInput-root {
-  border-radius: 7px; /* Set border radius for the input field */
+  border-radius: 7px; 
 }
