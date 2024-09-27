@@ -299,8 +299,7 @@ const getDeviceShapes = useCallback(
         }),
       ]);
   
-      console.log('Related Devices:', relatedDevicesResponse.data);
-      console.log('Library Property:', libraryPropertyResponse.data);
+    
   
       const librarypropertywithskeloton = libraryPropertyResponse.data.Data.libPropDetails.dtPropertySetSkeleton;
       const PropertyXMLString = libraryPropertyResponse.data.Data.libPropDetails.PropertyXMLString;
@@ -423,8 +422,6 @@ const getDeviceShapes = useCallback(
     }
   };
 
-
-
   // function for manually expand tree(result tab tree)
   const handleExpandMainTree = async (expandedKeys: any, { node, expanded, }: { node: any; expanded: boolean; nativeEvent: MouseEvent }) => {
     let newExpandedKeys = [...expandedKeys]
@@ -511,7 +508,6 @@ const getDeviceShapes = useCallback(
       setRelatedDevicesVisible(false);
     }
 
-    console.log('Selected Keys:', selectedKeys);
   };
 
  
@@ -644,7 +640,6 @@ const relatedAndLibraryPropertyRef = useRef(RelatedandLibraryProperty);
 useEffect(() => {
   if (initialTreeData) {
     setTreeData(initialTreeData);
-
     // Apply autoExpand on first-time tree render
     autoExpandDefaultNodesOfTree(initialTreeData).then(async ({ expandedKeys, selectedKeys, selectedNode, isSelected }) => {
       setExpandedKeys(expandedKeys);

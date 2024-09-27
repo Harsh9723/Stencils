@@ -24,11 +24,7 @@ interface Manufacturer {
 interface EqType {
   eqtype: string,
 }
-interface ProductLine {
 
-}
-interface ProductNumber {
-}
 
 
 const SearchComponent = () => {
@@ -38,9 +34,9 @@ const SearchComponent = () => {
   const [selectedManufacturer, setSelectedManufacturer] = useState<string>('');
   const [eqTypes, setEqTypes] = useState<EqType[]>([]);
   const [selectedEqType, setSelectedEqType] = useState<string>('');
-  const [productLine, setProductLine] = useState<ProductLine[]>([]);
+  const [productLine, setProductLine] = useState<string[]>([]);
   const [selectedProductLine, setSelectedProductLine] = useState<string>('');
-  const [productNumber, setProductNumber] = useState<ProductNumber[]>([]);
+  const [productNumber, setProductNumber] = useState<string[]>([]);
   const [selectedProductNumber, setSelectedProductNumber] = useState<string>('');
   const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
   const [snackbarMessage, setSnackbarMessage] = useState<string>('');
@@ -72,7 +68,6 @@ const SearchComponent = () => {
   const onSuccess = (resultData: any[], dtResultdata: any[]) => {
     setLoading(false)
     if (dtResultdata && dtResultdata.length > 0) {
-      console.log('Processing dtResultdata:', dtResultdata);
 
       setDtManufacturers(dtResultdata);
       setIsDialogOpen(true);
@@ -80,7 +75,6 @@ const SearchComponent = () => {
     }
 
     if (resultData && resultData.length > 0) {
-      console.log('Processing resultData:', resultData);
 
       const treeHierarchy = transformToTreeData(resultData);
       console.log('treeHierarchy:', treeHierarchy);
@@ -119,7 +113,6 @@ const SearchComponent = () => {
           Models: null,
         });
         const manufacturersData = response.data.Data;
-        console.log('main', manufacturersData)
         setManufacturers(manufacturersData);
 
         if (manufacturersData.length === 1) {
@@ -206,7 +199,6 @@ const SearchComponent = () => {
             FullLibrary: false,
           });
           const productNumberData = response.data.Data;
-          console.log('pronumber', productNumberData)
           setProductNumber(productNumberData);
 
           // Automatically select if only one product number is available
