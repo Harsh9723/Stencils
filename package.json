@@ -1,6 +1,6 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "stencils",
+  "version": "1.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -10,9 +10,9 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.108",
-    "@types/office-js": "^1.0.423",
-    "@types/react": "^18.3.8",
+    "@types/node": "^16.18.111",
+    "@types/office-js": "^1.0.429",
+    "@types/react": "^18.3.9",
     "@types/react-dom": "^18.3.0",
     "axios": "^1.7.7",
     "rc-tree": "^5.9.0",

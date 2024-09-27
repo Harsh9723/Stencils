@@ -12,7 +12,7 @@ import {
   Snackbar,
   TableContainerProps,
 } from '@mui/material';
-; // Import your CSS file
+; 
 
 interface PropertyDataItem {
   GroupName: string;

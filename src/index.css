@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 
+
 body, html {
   font-family: 'Segoe UI', sans-serif;
   }
@@ -801,6 +802,7 @@ justify-content: center !important;
   padding: 12px !important;
   font-family: 'Segoe UI', sans-serif !important;
   color: var(--font-color);
+  font-size: 12px !important;
 }
 
 /* radio buttons */
@@ -842,3 +844,18 @@ margin-top: 2px;
 .custom-text-field .MuiOutlinedInput-root {
   border-radius: 7px; 
 }
+
+.tagline{
+  font-weight: bold !important;
+    text-align: center !important;
+    font-family: 'Segoe UI', sans-serif !important;
+    padding: 0 12px !important;
+    font-size: 12px !important;
+}
+
+.formcontrol{
+  margin-top: 10;
+  height: auto;
+}
+
+

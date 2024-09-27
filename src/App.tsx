@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import MainPage from './Pages/MainPage';
-import './App.css';
 import PreloadPage from './Components/PreloadPage';
 
 declare global {

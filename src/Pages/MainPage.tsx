@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Box, TextField, Typography, CircularProgress, Snackbar, } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import data from '../Link.json'
@@ -59,7 +59,7 @@ const SearchComponent = () => {
     setKwdSearchType(event.target.value);
   };
 
-  const searchParams = {
+  const searchParams = useMemo(() => ({
     keyword,
     kwdSearchType,
     selectedManufacturer,
@@ -67,9 +67,7 @@ const SearchComponent = () => {
     selectedProductLine,
     selectedProductNumber,
     selectedDtManufacturers,
-    setSnackbarMessage,
-    setSnackbarOpen,
-  };
+  }), [keyword, kwdSearchType, selectedManufacturer, selectedEqType, selectedProductLine, selectedProductNumber, selectedDtManufacturers]);
 
   const onSuccess = (resultData: any[], dtResultdata: any[]) => {
     setLoading(false)
@@ -246,7 +244,7 @@ const SearchComponent = () => {
     if (selectedManufacturer && selectedEqType && selectedProductLine && selectedProductNumber) {
       Search(searchParams, onSuccess, onError)
     }
-  }, [selectedManufacturer && selectedEqType && selectedProductLine && selectedProductNumber])
+  }, [selectedManufacturer, selectedEqType , selectedProductLine , selectedProductNumber,searchParams])
 
 
   const handleManufacturerChange = (event: SelectChangeEvent<string>) => {
@@ -316,13 +314,14 @@ const SearchComponent = () => {
   }
   useTheme(data.colortheme)
 
-  const handleSnackbarClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+  const handleSnackbarClose = (_event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') return;
     setSnackbarOpen(false);
   };
   const handlesearch = () => {
     setLoading(true)
     Search(searchParams, onSuccess, onError);
+    setLoading(false)
   };
 
   const handleBackClick = () => {
@@ -411,9 +410,6 @@ const SearchComponent = () => {
                   fullWidth
                 />
 
-
-
-
                 {keyword ? (
                   <Snackbar
                     open={snackbarOpen}
@@ -449,7 +445,6 @@ const SearchComponent = () => {
                 <img
                   src="./assets/Icons/Search_128x128.svg"
                   alt="Search"
-
                   onClick={() => !loading && handlesearch()}
                   className='search-icon'
                 />
@@ -477,7 +472,7 @@ const SearchComponent = () => {
             </div>
 
 
-            <FormControl variant='outlined' sx={{ mt: 2 }} >
+            <FormControl variant='outlined' >
               <InputLabel className='select-label' shrink> Manufacturers  [{manufacturers.length}]</InputLabel>
               <Select
                 displayEmpty

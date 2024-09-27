@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from 'react';
-import { Card } from '@mui/material';
 import { insertSvgContentIntoOffice } from '../Common/CommonFunctions';
 
 interface SvgContentProps {
@@ -35,42 +34,36 @@ const SvgContent: React.FC<SvgContentProps> = ({ svgContent, productnumber }) =>
       }
     };
 
-    handleResize(); 
-    window.addEventListener('resize', handleResize); 
+    handleResize();
+    window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
-      
-        <div className={`svg-card ${screenSize === 'small' ? 'svg-card-sm' : ''}`}>
 
-            <div
-            ref={svgRef}
-            className={`svg-wrapper ${screenSize === 'medium' ? 'svg-wrapper-md' : ''} ${
-              screenSize === 'small' ? 'svg-wrapper-sm' : ''
-            }`}
-            draggable
-            onDragOver={(e: React.DragEvent<HTMLDivElement>) => {
-              e.preventDefault();
-              console.log('Dragging over the target');
-            }}
-            onDragStart={handleDragStart}
-            onDoubleClick={handleDoubleClick}
-            title="Drag and Drop Or Double-click To Insert"
-            dangerouslySetInnerHTML={{ __html: svgContent }}
-            >
-            </div>
+    <div className={`svg-card ${screenSize === 'small' ? 'svg-card-sm' : ''}`}>
 
-            <div className='pnumber-div'>
-            <h1 className="product-number">{productnumber}</h1>
-            </div>
+      <div
+        ref={svgRef}
+        className={`svg-wrapper ${screenSize === 'medium' ? 'svg-wrapper-md' : ''} ${screenSize === 'small' ? 'svg-wrapper-sm' : ''
+          }`}
+        draggable
+        onDragOver={(e: React.DragEvent<HTMLDivElement>) => {
+          e.preventDefault();
+          console.log('Dragging over the target');
+        }}
+        onDragStart={handleDragStart}
+        onDoubleClick={handleDoubleClick}
+        title="Drag and Drop Or Double-click To Insert"
+        dangerouslySetInnerHTML={{ __html: svgContent }}
+      >
+      </div>
 
-
-            </div>
-
-    
-   
+      <div className='pnumber-div'>
+        <h1 className="product-number">{productnumber}</h1>
+      </div>
+    </div>
 
   );
 };
