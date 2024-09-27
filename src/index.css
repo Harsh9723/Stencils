@@ -614,7 +614,7 @@ color: #000000 !important;
 
 @media (max-width: 600px) { 
   .typography-title {
-    font-size: 12px;
+    font-size: 12px !important; 
   }
 }
 
@@ -776,22 +776,33 @@ justify-content: center !important;
   position: absolute;
   margin-top: 0;
   width: 100%;
-  font-size: 12px !important;
   color: var(--font-color);
   font-weight: bold;
-  /* bottom: 0.2%; */
+  bottom: 0.2%;
 }
 
-@media (max-width: 600px) { 
-  .product-number {
-    font-size: 12px; 
-  }
+.product-number {
+  font-size: 12px !important; 
 }
-@media (max-width: 300px) { 
+
+@media (min-width: 600px) {
   .product-number {
     font-size: 10px !important; 
   }
 }
+
+@media (min-width: 900px) {
+  .product-number {
+    font-size: 12px !important; 
+  }
+}
+
+@media (min-width: 1200px) {
+  .product-number {
+    font-size: 12px !important; 
+  }
+}
+
 
 
 .rc-tree-title{
