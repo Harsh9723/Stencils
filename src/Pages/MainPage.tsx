@@ -477,10 +477,8 @@ const SearchComponent = () => {
                 />}
                 MenuProps={{
                   PaperProps: {
-                    style: {
-                      zIndex: 20,
-                      height: '75%'
-                    },
+                    className: 'select-dropdown', 
+        
                   },
                 }}
                 renderValue={(selected: string) => {
@@ -617,6 +615,11 @@ const SearchComponent = () => {
                     return <h1>All</h1>
                   }
                   return Pnumberselected as string
+                }}
+                MenuProps={{
+                  PaperProps: {
+                    className: 'select-dropdown-Pno', 
+                  },
                 }}
               >
                 {productNumber.length > 0 && (
