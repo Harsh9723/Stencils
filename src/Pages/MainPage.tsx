@@ -528,6 +528,12 @@ const SearchComponent = () => {
                   }
                   return selected as string;
                 }}
+                MenuProps={{
+                  PaperProps: {
+                    className: 'select-dropdown', 
+        
+                  },
+                }}
               >
                 {eqTypes.length > 0 && (
                   <MenuItem value="">
@@ -574,6 +580,12 @@ const SearchComponent = () => {
                     return <h1 className='default-all'>All</h1>
                   }
                   return selected as string
+                }}
+                MenuProps={{
+                  PaperProps: {
+                    className: 'select-dropdown-Pnumber', 
+        
+                  },
                 }}
               >
                 {productLine.length > 0 && (

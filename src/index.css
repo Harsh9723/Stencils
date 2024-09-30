@@ -880,16 +880,26 @@ margin-top: 2px;
 
 
 .select-dropdown {
-  max-height: 350px !important; /* Fix dropdown height */
-  overflow-y: auto;  /* Enable scrolling */
+  max-height: 350px !important;
+  overflow-y: auto; 
 }
 .select-dropdown-Pno{
+  max-height: 350px !important;
+  overflow-y: auto;
+}
+.select-dropdown-Pnumber{
   max-height: 350px !important;
   overflow-y: auto;
 }
 
 @media (max-width: 1400px) {
   .select-dropdown-Pno {
-    max-height: 250px !important; /* Smaller height for smaller screens */
+    max-height: 250px !important; 
+  }
+}
+
+@media (max-width: 1400px) {
+  .select-dropdown-Pnumber {
+    max-height: 250px !important; 
   }
 }
